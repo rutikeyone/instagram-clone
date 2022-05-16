@@ -1,0 +1,15 @@
+{
+    "username_or_email" : "Имя или почта",
+    "password" : "Пароль",
+    "the_login_or_password_validate_message_1" : "Поле логина и почты не должен быть пустым",
+    "the_password_validate_message_1" : "Поле пароля не может быть пустым",
+    "the_email_validate_message_1" : "Поле почты не может быть пустым",
+    "the_username_validate_message_1" : "Поле имени не может быть пустым",
+    "the_bio_validate_message_1" : "Поле биографии не может быть пустым",
+    "bio" : "Биография",
+    "log_in" : "Войти",
+    "don_t_have_an_account" : "У вас нет учетной записи?",
+    "sign_up" : "Создать",
+    "username" : "Имя",
+    "email" : "Почта"
+ }

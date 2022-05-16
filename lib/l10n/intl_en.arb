@@ -1,0 +1,16 @@
+{
+  "username_or_email" : "Username or email",
+  "password" : "Password",
+  "the_login_or_password_validate_message_1" : "The login or mail field should not be empty",
+  "the_password_validate_message_1" : "The password field cannot be empty",
+  "the_email_validate_message_1" : "The email field cannot be empty",
+  "the_username_validate_message_1" : "The username field cannot be empty",
+  "the_bio_validate_message_1" : "The bio field cannot be empty",
+  "bio" : "Bio",
+  "log_in" : "Log in",
+  "don_t_have_an_account" : "Don't have an account?",
+  "sign_up" : "Sign up",
+  "username" : "Username",
+  "email" : "Email",
+  "f" : "F"
+}
