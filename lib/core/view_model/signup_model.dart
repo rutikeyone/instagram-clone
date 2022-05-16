@@ -6,14 +6,6 @@ class SignupModel extends ChangeNotifier {
 
   SignupModel({required this.cubit});
 
-  void signUp(BuildContext context) async {
-    await cubit.signUp().then((value) {
-      if (value != null && value) {
-        Navigator.of(context).pop();
-      }
-    });
-  }
-
   void back(BuildContext context) {
     cubit.clear();
     Navigator.of(context).pop();

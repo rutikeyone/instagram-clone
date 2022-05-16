@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The login or mail field should not be empty"),
         "the_password_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "The password field cannot be empty"),
+        "the_password_validate_message_2": MessageLookupByLibrary.simpleMessage(
+            "There must be more than six elements in the password field"),
         "the_username_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "The username field cannot be empty"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),

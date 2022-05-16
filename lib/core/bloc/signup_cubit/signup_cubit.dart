@@ -46,27 +46,30 @@ class SignupCubit extends Cubit<SignupState> {
             [bio, state.password, state.username, state.email])));
   }
 
-  Future<bool?> signUp() async {
+  void signUp() async {
+    await auth.signUpUser(
+        username: state.username.value,
+        email: state.email.value,
+        password: state.password.value,
+        bio: state.bio.value);
+    emit(state.copyWith(
+      username: const Username.pure(),
+      email: const Email.pure(),
+      password: const Password.pure(),
+      bio: const Bio.pure(),
+      status: FormzStatus.submissionSuccess,
+    ));
+  }
+
+  bool validate() {
     onEmailChanged(state.email.value);
     onUsernameChanged(state.username.value);
     onPasswordChanged(state.password.value);
     onBioChanged(state.bio.value);
     if (state.status.isValidated) {
-      await auth.signUpUser(
-          username: state.username.value,
-          email: state.email.value,
-          password: state.password.value,
-          bio: state.bio.value);
-      emit(state.copyWith(
-        username: const Username.pure(),
-        email: const Email.pure(),
-        password: const Password.pure(),
-        bio: const Bio.pure(),
-        status: FormzStatus.submissionSuccess,
-      ));
       return true;
     }
-    return null;
+    return false;
   }
 
   void clear() {
@@ -75,7 +78,8 @@ class SignupCubit extends Cubit<SignupState> {
       email: const Email.pure(),
       password: const Password.pure(),
       bio: const Bio.pure(),
-      status: FormzStatus.valid,
+      status: Formz.validate(
+          [state.username, state.email, state.password, state.bio]),
     ));
   }
 }

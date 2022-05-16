@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Поле логина и почты не должен быть пустым"),
         "the_password_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "Поле пароля не может быть пустым"),
+        "the_password_validate_message_2": MessageLookupByLibrary.simpleMessage(
+            "В поле пароля должно быть больше шести элементов"),
         "the_username_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "Поле имени не может быть пустым"),
         "username": MessageLookupByLibrary.simpleMessage("Имя"),

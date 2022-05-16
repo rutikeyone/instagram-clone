@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/model/email.dart';
 import 'package:instagram_clone/core/view_model/signup_model.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
 import 'package:provider/provider.dart';
+
+import '../../core/model/password.dart';
 
 class SignupScreen extends StatelessWidget {
   final SignupCubit signupCubit;
@@ -119,11 +120,17 @@ class _SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<SignupModel>();
+    final cubit = context.read<SignupCubit>();
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        onPressed: () => model.signUp(context),
+        onPressed: () {
+          if (cubit.validate()) {
+            cubit.signUp();
+            cubit.clear();
+            Navigator.of(context).pop();
+          }
+        },
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -197,7 +204,12 @@ class _PasswordInputTextField extends StatelessWidget {
           isError: state.password.invalid,
           autofocus: false,
           hintText: S.of(context).password,
-          errorText: S.of(context).the_password_validate_message_1,
+          errorText: state.password.error == PasswordValidationError.empty
+              ? S.of(context).the_password_validate_message_1
+              : (state.password.error ==
+                      PasswordValidationError.lessThanSixElements
+                  ? S.of(context).the_password_validate_message_2
+                  : ""),
           obscureText: true,
         );
       },

@@ -189,6 +189,16 @@ class S {
       args: [],
     );
   }
+
+  /// `There must be more than six elements in the password field`
+  String get the_password_validate_message_2 {
+    return Intl.message(
+      'There must be more than six elements in the password field',
+      name: 'the_password_validate_message_2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
