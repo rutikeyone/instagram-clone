@@ -26,7 +26,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "don_t_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
-        "f": MessageLookupByLibrary.simpleMessage("F"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log in"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
@@ -34,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "The bio field cannot be empty"),
         "the_email_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "The email field cannot be empty"),
+        "the_email_validate_message_2":
+            MessageLookupByLibrary.simpleMessage("Not email"),
         "the_login_or_password_validate_message_1":
             MessageLookupByLibrary.simpleMessage(
                 "The login or mail field should not be empty"),

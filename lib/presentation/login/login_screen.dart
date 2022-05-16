@@ -145,8 +145,8 @@ class _UserNameInputTextField extends StatelessWidget {
           onChanged: (value) => cubit.onUsernameChanged(value),
           isError: state.username.invalid,
           autofocus: false,
-          hintText: S.of(context).username_or_email,
-          errorText: S.of(context).the_login_or_password_validate_message_1,
+          hintText: S.of(context).username,
+          errorText: S.of(context).the_username_validate_message_1,
           obscureText: false,
           keyboardType: TextInputType.emailAddress,
         );

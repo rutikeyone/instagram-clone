@@ -180,11 +180,11 @@ class S {
     );
   }
 
-  /// `F`
-  String get f {
+  /// `Not email`
+  String get the_email_validate_message_2 {
     return Intl.message(
-      'F',
-      name: 'f',
+      'Not email',
+      name: 'the_email_validate_message_2',
       desc: '',
       args: [],
     );

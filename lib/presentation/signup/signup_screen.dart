@@ -3,16 +3,41 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
+import 'package:instagram_clone/core/model/email.dart';
+import 'package:instagram_clone/core/view_model/signup_model.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  final SignupCubit signupCubit;
+  const SignupScreen({Key? key, required this.signupCubit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignupCubit, SignupState>(
-      listener: ((context, state) {}),
+    return ChangeNotifierProvider(
+      create: (context) => SignupModel(cubit: signupCubit),
+      child: BlocListener<SignupCubit, SignupState>(
+        listener: ((context, state) {}),
+        child: const SignupPage(),
+      ),
+    );
+  }
+}
+
+class SignupPage extends StatelessWidget {
+  const SignupPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<SignupModel>();
+    return WillPopScope(
+      onWillPop: () async {
+        model.back(context);
+        return false;
+      },
       child: SafeArea(
         child: Scaffold(
           body: Center(
@@ -94,19 +119,19 @@ class _SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SignupCubit>();
+    final model = context.read<SignupModel>();
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Text(S.of(context).sign_up),
-        ),
-        onPressed: () => cubit.signUp(),
+        onPressed: () => model.signUp(context),
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Text(S.of(context).sign_up),
         ),
       ),
     );
@@ -198,7 +223,11 @@ class _EmailInputTextField extends StatelessWidget {
           isError: state.email.invalid,
           autofocus: false,
           hintText: S.of(context).email,
-          errorText: S.of(context).the_email_validate_message_1,
+          errorText: state.email.error == EmailValidationError.empty
+              ? S.of(context).the_email_validate_message_1
+              : (state.email.error == EmailValidationError.notEmail
+                  ? S.of(context).the_email_validate_message_2
+                  : ""),
           obscureText: false,
         );
       },

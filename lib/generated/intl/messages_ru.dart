@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Поле биографии не может быть пустым"),
         "the_email_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "Поле почты не может быть пустым"),
+        "the_email_validate_message_2":
+            MessageLookupByLibrary.simpleMessage("Не почта"),
         "the_login_or_password_validate_message_1":
             MessageLookupByLibrary.simpleMessage(
                 "Поле логина и почты не должен быть пустым"),

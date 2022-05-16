@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
+import 'package:instagram_clone/core/get_it_locator/locator.dart';
 import 'package:instagram_clone/presentation/login/login_screen.dart';
 import 'package:instagram_clone/presentation/signup/signup_screen.dart';
 
@@ -15,7 +17,9 @@ class RouteGenerator {
         );
       case signupRouteName:
         return MaterialPageRoute(
-          builder: ((context) => const SignupScreen()),
+          builder: ((context) => SignupScreen(
+                signupCubit: getIt.get<SignupCubit>(),
+              )),
         );
       default:
         _errorRoute;

@@ -12,5 +12,5 @@
   "sign_up" : "Sign up",
   "username" : "Username",
   "email" : "Email",
-  "f" : "F"
-}
+  "the_email_validate_message_2" : "Not email"
+ }

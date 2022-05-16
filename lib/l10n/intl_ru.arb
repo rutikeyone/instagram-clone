@@ -11,5 +11,9 @@
     "don_t_have_an_account" : "У вас нет учетной записи?",
     "sign_up" : "Создать",
     "username" : "Имя",
-    "email" : "Почта"
+    "email" : "Почта",
+    "not_email" : "Не почта",
+    "the_email_validate_message_2" : "Не почта"
+
+
  }
