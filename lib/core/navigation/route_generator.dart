@@ -8,7 +8,7 @@ const loginRouteName = '/login';
 const signupRouteName = '/signup';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
       case loginRouteName:
@@ -22,20 +22,7 @@ class RouteGenerator {
               )),
         );
       default:
-        _errorRoute;
+        return null;
     }
-    return _errorRoute();
   }
-}
-
-Route<dynamic> _errorRoute() {
-  return MaterialPageRoute(
-    builder: (context) => Scaffold(
-        appBar: AppBar(
-          title: const Text("Error"),
-        ),
-        body: const Center(
-          child: Text("ERROR"),
-        )),
-  );
 }

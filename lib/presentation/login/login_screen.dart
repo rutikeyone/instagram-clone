@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
@@ -10,37 +13,44 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
-      listener: ((context, state) {}),
-      child: SafeArea(
-        child: Scaffold(
-          body: Center(
-            child: SafeArea(
-              child: Scaffold(
-                body: CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            _InstagramSvgPicture(),
-                            SizedBox(height: 64),
-                            _UserNameInputTextField(),
-                            SizedBox(height: 24),
-                            _PasswordInputTextField(),
-                            SizedBox(height: 24),
-                            _LogInButton(),
-                            SizedBox(height: 12),
-                            _SignUp(),
-                          ],
+    return WillPopScope(
+      onWillPop: () async {
+        exit(0);
+      },
+      child: BlocListener<LoginCubit, LoginState>(
+        listener: ((context, state) {}),
+        child: SafeArea(
+          child: Scaffold(
+            body: Center(
+              child: SafeArea(
+                child: Scaffold(
+                  body: CustomScrollView(
+                    slivers: [
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              SizedBox(height: 24),
+                              _InstagramSvgPicture(),
+                              SizedBox(height: 64),
+                              _UserNameInputTextField(),
+                              SizedBox(height: 24),
+                              _PasswordInputTextField(),
+                              SizedBox(height: 24),
+                              _LogInButton(),
+                              SizedBox(height: 12),
+                              _SignUp(),
+                              SizedBox(height: 24),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -63,23 +73,23 @@ class _SignUp extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          child: Text(S.of(context).don_t_have_an_account),
           padding: const EdgeInsets.symmetric(
             vertical: 8,
           ),
+          child: Text(S.of(context).don_t_have_an_account),
         ),
         const SizedBox(width: 5),
         GestureDetector(
           onTap: () => cubit.navigationInSignUp(context),
           child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8,
+            ),
             child: Text(
               S.of(context).sign_up,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 8,
             ),
           ),
         ),
@@ -99,15 +109,15 @@ class _LogInButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Text(S.of(context).log_in),
-        ),
         onPressed: () => cubit.loginWithUserNameAndPassword(),
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Text(S.of(context).log_in),
         ),
       ),
     );

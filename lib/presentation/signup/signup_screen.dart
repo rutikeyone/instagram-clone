@@ -3,11 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/model/email.dart';
-import 'package:instagram_clone/core/view_model/signup_model.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
-import 'package:provider/provider.dart';
-
 import '../../core/model/password.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -16,12 +13,9 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => SignupModel(cubit: signupCubit),
-      child: BlocListener<SignupCubit, SignupState>(
-        listener: ((context, state) {}),
-        child: const SignupPage(),
-      ),
+    return BlocListener<SignupCubit, SignupState>(
+      listener: ((context, state) {}),
+      child: const SignupPage(),
     );
   }
 }
@@ -33,10 +27,11 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<SignupModel>();
+    final cubit = context.read<SignupCubit>();
     return WillPopScope(
       onWillPop: () async {
-        model.back(context);
+        cubit.clear();
+        Navigator.of(context).pop();
         return false;
       },
       child: SafeArea(
@@ -54,6 +49,7 @@ class SignupPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
+                            SizedBox(height: 24),
                             _InstagramSvgPicture(),
                             SizedBox(height: 24),
                             _AddAvatar(),
@@ -90,19 +86,22 @@ class _AddAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<SignupCubit>();
     return Stack(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 64,
-          backgroundImage: AssetImage(
-            "assets/instagram_default_avatar.jpg",
-          ),
+          backgroundImage: cubit.state.file == null
+              ? const AssetImage(
+                  "assets/default_logo_avatar.png",
+                )
+              : MemoryImage(cubit.state.file!) as ImageProvider,
         ),
         Positioned(
           bottom: -10,
           left: 80,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () async => cubit.pickImage(),
             icon: const Icon(
               Icons.add_a_photo,
             ),

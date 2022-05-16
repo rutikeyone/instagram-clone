@@ -39,7 +39,7 @@ flutter:
 
   assets:
     - assets/ic_instagram.svg
-    - assets/instagram_default_avatar.jpg
+    - assets/default_logo_avatar.png
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

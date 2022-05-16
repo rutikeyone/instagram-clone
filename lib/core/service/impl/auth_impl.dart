@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_clone/core/service/auth.dart';
@@ -12,12 +14,12 @@ class AuthImpl extends Auth {
   }
 
   @override
-  Future<void> signUpUser({
-    required String email,
-    required String password,
-    required String username,
-    required String bio,
-  }) async {
+  Future<void> signUpUser(
+      {required String email,
+      required String password,
+      required String username,
+      required String bio,
+      required String? photoUrl}) async {
     if (email.isNotEmpty ||
         password.isNotEmpty ||
         username.isNotEmpty ||
@@ -31,6 +33,7 @@ class AuthImpl extends Auth {
         'bio': bio,
         'followers': [],
         'following': [],
+        "photoUrl": photoUrl,
       });
     }
   }
