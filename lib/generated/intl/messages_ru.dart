@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "bio": MessageLookupByLibrary.simpleMessage("Биография"),
         "don_t_have_an_account":
             MessageLookupByLibrary.simpleMessage("У вас нет учетной записи?"),
+        "done": MessageLookupByLibrary.simpleMessage("Ок"),
         "email": MessageLookupByLibrary.simpleMessage("Почта"),
         "log_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),

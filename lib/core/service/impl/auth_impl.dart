@@ -31,6 +31,7 @@ class AuthImpl extends Auth {
         'uid': userCredential.user!.uid,
         'email': email,
         'bio': bio,
+        'password': password,
         'followers': [],
         'following': [],
         "photoUrl": photoUrl,

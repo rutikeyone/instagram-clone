@@ -1,7 +1,27 @@
 part of 'signup_cubit.dart';
 
-class SignupState extends Equatable {
-  const SignupState({
+abstract class SignState extends Equatable {}
+
+class SignCreateUserSuccess extends SignState {
+  @override
+  List<Object?> get props => [];
+}
+
+class SignCreateUserLoading extends SignState {
+  @override
+  List<Object?> get props => [];
+}
+
+class SignCreateUserFailure extends SignState {
+  final String errorMessage;
+
+  SignCreateUserFailure(this.errorMessage);
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class SignupInitial extends SignState {
+  SignupInitial({
     this.status = FormzStatus.pure,
     this.username = const Username.pure(),
     this.password = const Password.pure(),
@@ -10,6 +30,9 @@ class SignupState extends Equatable {
     this.file,
   });
 
+  @override
+  List<Object?> get props => [status, username, password, email, bio, file];
+
   final FormzStatus status;
   final Username username;
   final Password password;
@@ -17,7 +40,7 @@ class SignupState extends Equatable {
   final Bio bio;
   final Uint8List? file;
 
-  SignupState copyWith({
+  SignupInitial copyWith({
     FormzStatus? status,
     Username? username,
     Password? password,
@@ -25,15 +48,13 @@ class SignupState extends Equatable {
     Bio? bio,
     Uint8List? file,
   }) {
-    return SignupState(
-        status: status ?? this.status,
-        username: username ?? this.username,
-        password: password ?? this.password,
-        email: email ?? this.email,
-        bio: bio ?? this.bio,
-        file: file ?? this.file);
+    return SignupInitial(
+      status: status ?? this.status,
+      username: username ?? this.username,
+      password: password ?? this.password,
+      email: email ?? this.email,
+      bio: bio ?? this.bio,
+      file: file ?? this.file,
+    );
   }
-
-  @override
-  List<Object?> get props => [status, username, password, email, bio, file];
 }
