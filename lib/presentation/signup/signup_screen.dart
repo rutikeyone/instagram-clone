@@ -14,7 +14,8 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<signup_cubit.SignupCubit, signup_cubit.SignState>(
       listener: ((context, state) {
-        if (state is signup_cubit.SignCreateUserSuccess) {
+        if (state is signup_cubit.SignComeBack ||
+            state is signup_cubit.SignComeBack) {
           Navigator.of(context).pop();
           BlocProvider.of<signup_cubit.SignupCubit>(context)
               .emitSignupInitial();
@@ -39,7 +40,7 @@ class SignupScreen extends StatelessWidget {
       }),
       buildWhen: (prevState, nextState) {
         return nextState is! signup_cubit.SignCreateUserFailure &&
-            nextState is! signup_cubit.SignCreateUserSuccess;
+            nextState is! signup_cubit.SignComeBack;
       },
       builder: (context, state) {
         if (state is signup_cubit.SignupInitial) {

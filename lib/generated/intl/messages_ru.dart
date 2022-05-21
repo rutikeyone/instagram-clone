@@ -27,7 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("У вас нет учетной записи?"),
         "done": MessageLookupByLibrary.simpleMessage("Ок"),
         "email": MessageLookupByLibrary.simpleMessage("Почта"),
+        "email_already_in_use":
+            MessageLookupByLibrary.simpleMessage("Данная почта уже занята"),
         "log_in": MessageLookupByLibrary.simpleMessage("Войти"),
+        "operation_not_allowed":
+            MessageLookupByLibrary.simpleMessage("Операция не разрешена"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Создать"),
         "the_bio_validate_message_1": MessageLookupByLibrary.simpleMessage(
@@ -47,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Поле имени не может быть пустым"),
         "username": MessageLookupByLibrary.simpleMessage("Имя"),
         "username_or_email":
-            MessageLookupByLibrary.simpleMessage("Имя или почта")
+            MessageLookupByLibrary.simpleMessage("Имя или почта"),
+        "weak_password": MessageLookupByLibrary.simpleMessage("Слабый пароль")
       };
 }

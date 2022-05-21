@@ -27,7 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "email_already_in_use":
+            MessageLookupByLibrary.simpleMessage("Email Already In Use"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log in"),
+        "operation_not_allowed":
+            MessageLookupByLibrary.simpleMessage("Operation Not Allowed"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "the_bio_validate_message_1": MessageLookupByLibrary.simpleMessage(
@@ -47,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The username field cannot be empty"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "username_or_email":
-            MessageLookupByLibrary.simpleMessage("Username or email")
+            MessageLookupByLibrary.simpleMessage("Username or email"),
+        "weak_password": MessageLookupByLibrary.simpleMessage("Weak password")
       };
 }

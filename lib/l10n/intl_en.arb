@@ -14,5 +14,8 @@
   "email" : "Email",
   "the_email_validate_message_2" : "Not email",
   "the_password_validate_message_2" : "There must be more than six elements in the password field",
-  "done" : "Done"
+  "done" : "Done",
+  "weak_password" : "Weak password",
+  "email_already_in_use" : "Email Already In Use",
+  "operation_not_allowed" : "Operation Not Allowed"
 }

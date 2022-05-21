@@ -20,6 +20,11 @@ class SignCreateUserFailure extends SignState {
   List<Object?> get props => [errorMessage];
 }
 
+class SignComeBack extends SignState {
+  @override
+  List<Object?> get props => [];
+}
+
 class SignupInitial extends SignState {
   SignupInitial({
     this.status = FormzStatus.pure,

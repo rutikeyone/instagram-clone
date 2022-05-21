@@ -22,6 +22,7 @@ class SignupInitial extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        cubit.emitComeBack();
         return false;
       },
       child: SafeArea(

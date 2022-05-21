@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone/core/exception/AuthException.dart';
 import 'package:instagram_clone/core/model/bio.dart';
 import 'package:instagram_clone/core/model/email.dart';
 import 'package:instagram_clone/core/model/password.dart';
@@ -13,6 +13,7 @@ import 'package:instagram_clone/core/model/username.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/core/service/picker.dart';
 import 'package:instagram_clone/core/service/storage.dart';
+import 'package:instagram_clone/generated/l10n.dart';
 
 part 'signup_state.dart';
 
@@ -26,6 +27,10 @@ class SignupCubit extends Cubit<SignState> {
 
   void emitSignupInitial() {
     emit(SignupInitial());
+  }
+
+  void emitComeBack() {
+    emit(SignComeBack());
   }
 
   void onEmailChanged(String value) {
@@ -121,11 +126,26 @@ class SignupCubit extends Cubit<SignState> {
             bio: initialState.bio.value,
             photoUrl: photoUrl ?? "",
           );
-          emit(SignCreateUserSuccess());
-        } on PlatformException catch (e) {
-          emit(SignCreateUserFailure(e.toString()));
+          emit(SignComeBack());
+        } on AuthException catch (e) {
+          emitSignCreateUserFailureWithException(e);
         }
       }
+    }
+  }
+
+  void emitSignCreateUserFailureWithException(AuthException e) {
+    switch (e.exception) {
+      case TypeAuthException.emailAlreadyInUse:
+        emit(SignCreateUserFailure(S.current.email_already_in_use));
+        break;
+      case TypeAuthException.weakPassword:
+        emit(SignCreateUserFailure(S.current.weak_password));
+        break;
+
+      case TypeAuthException.operationNotAllowed:
+        emit(SignCreateUserFailure(S.current.operation_not_allowed));
+        break;
     }
   }
 

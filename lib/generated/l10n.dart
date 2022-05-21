@@ -209,6 +209,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Weak password`
+  String get weak_password {
+    return Intl.message(
+      'Weak password',
+      name: 'weak_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Already In Use`
+  String get email_already_in_use {
+    return Intl.message(
+      'Email Already In Use',
+      name: 'email_already_in_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operation Not Allowed`
+  String get operation_not_allowed {
+    return Intl.message(
+      'Operation Not Allowed',
+      name: 'operation_not_allowed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

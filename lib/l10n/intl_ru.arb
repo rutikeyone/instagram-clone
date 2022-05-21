@@ -15,5 +15,8 @@
     "not_email" : "Не почта",
     "the_email_validate_message_2" : "Не почта",
     "the_password_validate_message_2" : "В поле пароля должно быть больше шести элементов",
-    "done" : "Ок"
+    "done" : "Ок",
+    "weak_password" : "Слабый пароль",
+    "email_already_in_use" : "Данная почта уже занята",
+    "operation_not_allowed" : "Операция не разрешена"
  }
