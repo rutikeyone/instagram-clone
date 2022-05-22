@@ -29,6 +29,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Почта"),
         "email_already_in_use":
             MessageLookupByLibrary.simpleMessage("Данная почта уже занята"),
+        "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
+        "invalid_email": MessageLookupByLibrary.simpleMessage(
+            "Неверный адрес электронной почты"),
         "log_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "operation_not_allowed":
             MessageLookupByLibrary.simpleMessage("Операция не разрешена"),
@@ -49,9 +52,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "В поле пароля должно быть больше шести элементов"),
         "the_username_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "Поле имени не может быть пустым"),
+        "user_disabled":
+            MessageLookupByLibrary.simpleMessage("Пользователь отключен"),
+        "user_not_found":
+            MessageLookupByLibrary.simpleMessage("Пользователь не найден"),
         "username": MessageLookupByLibrary.simpleMessage("Имя"),
         "username_or_email":
             MessageLookupByLibrary.simpleMessage("Имя или почта"),
-        "weak_password": MessageLookupByLibrary.simpleMessage("Слабый пароль")
+        "weak_password": MessageLookupByLibrary.simpleMessage("Слабый пароль"),
+        "wrong_password":
+            MessageLookupByLibrary.simpleMessage("Неверный пароль")
       };
 }

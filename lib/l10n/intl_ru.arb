@@ -18,5 +18,10 @@
     "done" : "Ок",
     "weak_password" : "Слабый пароль",
     "email_already_in_use" : "Данная почта уже занята",
-    "operation_not_allowed" : "Операция не разрешена"
+    "operation_not_allowed" : "Операция не разрешена",
+    "error" : "Ошибка",
+    "invalid_email" : "Неверный адрес электронной почты",
+    "user_disabled" : "Пользователь отключен",
+    "user_not_found" : "Пользователь не найден",
+    "wrong_password" : "Неверный пароль"
  }

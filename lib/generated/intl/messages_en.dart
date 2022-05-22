@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_already_in_use":
             MessageLookupByLibrary.simpleMessage("Email Already In Use"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "invalid_email": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log in"),
         "operation_not_allowed":
             MessageLookupByLibrary.simpleMessage("Operation Not Allowed"),
@@ -49,9 +51,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "There must be more than six elements in the password field"),
         "the_username_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "The username field cannot be empty"),
+        "user_disabled": MessageLookupByLibrary.simpleMessage("User Disabled"),
+        "user_not_found":
+            MessageLookupByLibrary.simpleMessage("User not found"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "username_or_email":
             MessageLookupByLibrary.simpleMessage("Username or email"),
-        "weak_password": MessageLookupByLibrary.simpleMessage("Weak password")
+        "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),
+        "wrong_password": MessageLookupByLibrary.simpleMessage("Wrong Password")
       };
 }

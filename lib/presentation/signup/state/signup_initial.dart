@@ -9,7 +9,7 @@ import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.d
 
 import '../../../core/model/password.dart';
 
-class SignupInitial extends StatelessWidget {
+class SignupInitial extends StatefulWidget {
   final signup_cubit.SignupInitial initialState;
   final signup_cubit.SignupCubit cubit;
   const SignupInitial({
@@ -19,53 +19,57 @@ class SignupInitial extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SignupInitial> createState() => _SignupInitialState();
+}
+
+class _SignupInitialState extends State<SignupInitial> {
+  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        cubit.emitComeBack();
-        return false;
-      },
-      child: SafeArea(
-        child: Scaffold(
-          body: Center(
-            child: SafeArea(
-              child: Scaffold(
-                body: CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 24),
-                            const _InstagramSvgPicture(),
-                            const SizedBox(height: 24),
-                            _AddAvatar(
-                                cubit: cubit, initialState: initialState),
-                            const SizedBox(height: 24),
-                            _UserNameInputTextField(
-                                cubit: cubit, initialState: initialState),
-                            const SizedBox(height: 24),
-                            _EmailInputTextField(
-                                cubit: cubit, initialState: initialState),
-                            const SizedBox(height: 24),
-                            _PasswordInputTextField(
-                                cubit: cubit, initialState: initialState),
-                            const SizedBox(height: 24),
-                            _BioInputTextField(
-                                cubit: cubit, initialState: initialState),
-                            const SizedBox(height: 24),
-                            _SignUpButton(cubit: cubit),
-                            const SizedBox(height: 24),
-                          ],
-                        ),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: SafeArea(
+            child: Scaffold(
+              body: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 24),
+                          const _InstagramSvgPicture(),
+                          const SizedBox(height: 24),
+                          _AddAvatar(
+                              cubit: widget.cubit,
+                              initialState: widget.initialState),
+                          const SizedBox(height: 24),
+                          _UserNameInputTextField(
+                              cubit: widget.cubit,
+                              initialState: widget.initialState),
+                          const SizedBox(height: 24),
+                          _EmailInputTextField(
+                              cubit: widget.cubit,
+                              initialState: widget.initialState),
+                          const SizedBox(height: 24),
+                          _PasswordInputTextField(
+                              cubit: widget.cubit,
+                              initialState: widget.initialState),
+                          const SizedBox(height: 24),
+                          _BioInputTextField(
+                              cubit: widget.cubit,
+                              initialState: widget.initialState),
+                          const SizedBox(height: 24),
+                          _SignUpButton(cubit: widget.cubit),
+                          const SizedBox(height: 24),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

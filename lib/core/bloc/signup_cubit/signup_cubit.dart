@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/core/exception/AuthException.dart';
 import 'package:instagram_clone/core/model/bio.dart';
 import 'package:instagram_clone/core/model/email.dart';
 import 'package:instagram_clone/core/model/password.dart';
@@ -13,6 +13,7 @@ import 'package:instagram_clone/core/model/username.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/core/service/picker.dart';
 import 'package:instagram_clone/core/service/storage.dart';
+import 'package:instagram_clone/core/utils/exception/AuthException.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 
 part 'signup_state.dart';
@@ -29,8 +30,8 @@ class SignupCubit extends Cubit<SignState> {
     emit(SignupInitial());
   }
 
-  void emitComeBack() {
-    emit(SignComeBack());
+  void emitBack() {
+    emit(SignBack());
   }
 
   void onEmailChanged(String value) {
@@ -126,7 +127,7 @@ class SignupCubit extends Cubit<SignState> {
             bio: initialState.bio.value,
             photoUrl: photoUrl ?? "",
           );
-          emit(SignComeBack());
+          emit(SignBack());
         } on AuthException catch (e) {
           emitSignCreateUserFailureWithException(e);
         }
@@ -142,9 +143,13 @@ class SignupCubit extends Cubit<SignState> {
       case TypeAuthException.weakPassword:
         emit(SignCreateUserFailure(S.current.weak_password));
         break;
-
       case TypeAuthException.operationNotAllowed:
         emit(SignCreateUserFailure(S.current.operation_not_allowed));
+        break;
+      case TypeAuthException.invalidEmail:
+        emit(SignCreateUserFailure(S.current.invalid_email));
+        break;
+      default:
         break;
     }
   }

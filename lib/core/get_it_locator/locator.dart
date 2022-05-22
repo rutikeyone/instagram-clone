@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
@@ -16,11 +15,14 @@ final GetIt getIt = GetIt.instance;
 Future<void> setup() async {
   await Firebase.initializeApp();
 
+  getIt.registerSingleton<Auth>(AuthImpl());
+
   getIt.registerSingleton<Picker>(PickerImpl());
   getIt.registerSingleton<Storage>(StorageImpl());
 
-  getIt.registerSingleton<LoginCubit>(LoginCubit());
-  getIt.registerSingleton<Auth>(AuthImpl());
+  getIt.registerSingleton<LoginCubit>(LoginCubit(
+    auth: getIt.get<Auth>(),
+  ));
   getIt.registerSingleton<SignupCubit>(SignupCubit(
     auth: getIt.get<Auth>(),
     picker: getIt.get<Picker>(),

@@ -17,5 +17,10 @@
   "done" : "Done",
   "weak_password" : "Weak password",
   "email_already_in_use" : "Email Already In Use",
-  "operation_not_allowed" : "Operation Not Allowed"
+  "operation_not_allowed" : "Operation Not Allowed",
+  "error" : "Error",
+  "invalid_email" : "Invalid email",
+  "user_disabled" : "User Disabled",
+  "user_not_found" : "User not found",
+  "wrong_password" : "Wrong Password"
 }

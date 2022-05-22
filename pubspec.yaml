@@ -12,6 +12,7 @@ dependencies:
   adaptive_theme: ^2.3.1
   bloc: ^8.0.3
   cloud_firestore: ^3.1.15
+  cool_alert: ^1.1.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
   firebase_auth: ^3.3.18

@@ -2,6 +2,10 @@ enum TypeAuthException {
   weakPassword,
   operationNotAllowed,
   emailAlreadyInUse,
+  invalidEmail,
+  userDisabled,
+  userNotFound,
+  wrongPassword
 }
 
 class AuthException implements Exception {

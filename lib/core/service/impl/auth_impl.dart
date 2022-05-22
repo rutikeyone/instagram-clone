@@ -1,9 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:instagram_clone/core/exception/AuthException.dart';
 import 'package:instagram_clone/core/service/auth.dart';
+
+import '../../utils/exception/AuthException.dart';
 
 class AuthImpl extends Auth {
   late final FirebaseAuth _auth;
@@ -45,9 +45,31 @@ class AuthImpl extends Auth {
           throw const AuthException(TypeAuthException.emailAlreadyInUse);
         } else if (e.code == 'operation-not-allowed') {
           throw const AuthException(TypeAuthException.operationNotAllowed);
+        } else if (e.code == 'invalid-email') {
+          throw const AuthException(TypeAuthException.invalidEmail);
         } else {
           rethrow;
         }
+      }
+    }
+  }
+
+  @override
+  Future<void> loginUser(
+      {required String email, required String password}) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        throw const AuthException(TypeAuthException.invalidEmail);
+      } else if (e.code == 'user-disabled') {
+        throw const AuthException(TypeAuthException.userDisabled);
+      } else if (e.code == 'user-not-found') {
+        throw const AuthException(TypeAuthException.userNotFound);
+      } else if (e.code == 'wrong-password') {
+        throw const AuthException(TypeAuthException.wrongPassword);
+      } else {
+        rethrow;
       }
     }
   }

@@ -1,28 +1,55 @@
 part of 'login_cubit.dart';
 
-class LoginState extends Equatable {
-  const LoginState({
+abstract class LoginState extends Equatable {}
+
+class LoginUserSuccess extends LoginState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginUserFailure extends LoginState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginUserLoading extends LoginState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginCreateUser extends LoginState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginBack extends LoginState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginInitial extends LoginState {
+  LoginInitial({
     this.status = FormzStatus.pure,
-    this.username = const Username.pure(),
+    this.email = const Email.pure(),
     this.password = const Password.pure(),
   });
 
   final FormzStatus status;
-  final Username username;
+  final Email email;
   final Password password;
 
-  LoginState copyWith({
+  LoginInitial copyWith({
     FormzStatus? status,
-    Username? username,
+    Email? email,
     Password? password,
   }) {
-    return LoginState(
+    return LoginInitial(
       status: status ?? this.status,
-      username: username ?? this.username,
+      email: email ?? this.email,
       password: password ?? this.password,
     );
   }
 
   @override
-  List<Object> get props => [status, username, password];
+  List<Object> get props => [status, email, password];
 }

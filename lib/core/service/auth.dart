@@ -8,4 +8,9 @@ abstract class Auth {
     required String bio,
     required String? photoUrl,
   });
+
+  Future<void> loginUser({
+    required String email,
+    required String password,
+  });
 }

@@ -239,6 +239,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email`
+  String get invalid_email {
+    return Intl.message(
+      'Invalid email',
+      name: 'invalid_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Disabled`
+  String get user_disabled {
+    return Intl.message(
+      'User Disabled',
+      name: 'user_disabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User not found`
+  String get user_not_found {
+    return Intl.message(
+      'User not found',
+      name: 'user_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong Password`
+  String get wrong_password {
+    return Intl.message(
+      'Wrong Password',
+      name: 'wrong_password',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -20,7 +20,7 @@ class SignCreateUserFailure extends SignState {
   List<Object?> get props => [errorMessage];
 }
 
-class SignComeBack extends SignState {
+class SignBack extends SignState {
   @override
   List<Object?> get props => [];
 }
