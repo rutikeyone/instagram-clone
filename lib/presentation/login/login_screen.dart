@@ -1,11 +1,13 @@
-import 'dart:io';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart'
     as login_cubit;
 import 'package:instagram_clone/core/navigation/route_generator.dart';
-import 'package:instagram_clone/presentation/login/state/login_initial.dart';
-import 'package:instagram_clone/presentation/login/state/login_loading.dart';
+import 'package:instagram_clone/presentation/login/screen_state/login_initial.dart';
+import 'package:instagram_clone/presentation/login/screen_state/login_loading.dart';
+
+import '../../generated/l10n.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,9 +27,25 @@ class LoginScreen extends StatelessWidget {
                     .emitLoginInitial());
           }
 
+          if (state is login_cubit.LoginUserFailure) {
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.error,
+              barrierDismissible: false,
+              title: S.of(context).error,
+              text: state.errorMessage,
+              confirmBtnText: S.of(context).done,
+            ).whenComplete(() =>
+                BlocProvider.of<login_cubit.LoginCubit>(context)
+                    .emitLoginInitial());
+          }
+
           if (state is login_cubit.LoginUserSuccess) {
-            print("Success");
-            BlocProvider.of<login_cubit.LoginCubit>(context).emitLoginInitial();
+            Navigator.of(context)
+                .pushReplacementNamed(homeRouteName)
+                .whenComplete(() =>
+                    BlocProvider.of<login_cubit.LoginCubit>(context)
+                        .emitLoginInitial());
           }
 
           if (state is login_cubit.LoginBack) {

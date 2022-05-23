@@ -8,8 +8,11 @@ class LoginUserSuccess extends LoginState {
 }
 
 class LoginUserFailure extends LoginState {
+  final String errorMessage;
+
+  LoginUserFailure(this.errorMessage);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [errorMessage];
 }
 
 class LoginUserLoading extends LoginState {

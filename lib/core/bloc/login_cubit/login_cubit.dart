@@ -3,9 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:instagram_clone/core/model/email.dart';
 import 'package:instagram_clone/core/service/auth.dart';
-import 'package:instagram_clone/presentation/login/state/login_loading.dart';
+import 'package:instagram_clone/generated/l10n.dart';
 import '../../model/password.dart';
-import '../../model/username.dart';
 import '../../utils/exception/AuthException.dart';
 part 'login_state.dart';
 
@@ -55,10 +54,31 @@ class LoginCubit extends Cubit<LoginState> {
         try {
           await auth.loginUser(
               email: initialState.email.value,
-              password: initialState.email.value);
+              password: initialState.password.value);
           emit(LoginUserSuccess());
-        } on AuthException catch (e) {}
+        } on AuthException catch (e) {
+          emitLoginUserFailureWithException(e);
+        }
       }
+    }
+  }
+
+  void emitLoginUserFailureWithException(AuthException e) {
+    switch (e.exception) {
+      case TypeAuthException.invalidEmail:
+        emit(LoginUserFailure(S.current.invalid_email));
+        break;
+      case TypeAuthException.userDisabled:
+        emit(LoginUserFailure(S.current.user_disabled));
+        break;
+      case TypeAuthException.userNotFound:
+        emit(LoginUserFailure(S.current.user_not_found));
+        break;
+      case TypeAuthException.wrongPassword:
+        emit(LoginUserFailure(S.current.wrong_password));
+        break;
+      default:
+        break;
     }
   }
 }

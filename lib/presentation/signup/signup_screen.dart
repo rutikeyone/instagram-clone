@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart'
     as signup_cubit;
 import 'package:instagram_clone/generated/l10n.dart';
-import 'package:instagram_clone/presentation/signup/state/signup_initial.dart';
-import 'package:instagram_clone/presentation/signup/state/signup_loading.dart';
+import 'package:instagram_clone/presentation/signup/screen_state/signup_initial.dart';
+import 'package:instagram_clone/presentation/signup/screen_state/signup_loading.dart';
 
 class SignupScreen extends StatefulWidget {
   final signup_cubit.SignupCubit signupCubit;

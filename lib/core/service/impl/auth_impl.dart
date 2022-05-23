@@ -1,8 +1,7 @@
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_clone/core/service/auth.dart';
-
+import 'package:instagram_clone/core/model/user.dart' as model;
 import '../../utils/exception/AuthException.dart';
 
 class AuthImpl extends Auth {
@@ -28,16 +27,20 @@ class AuthImpl extends Auth {
       try {
         UserCredential userCredential = await _auth
             .createUserWithEmailAndPassword(email: email, password: password);
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
-          'username': username,
-          'uid': userCredential.user!.uid,
-          'email': email,
-          'bio': bio,
-          'password': password,
-          'followers': [],
-          'following': [],
-          "photoUrl": photoUrl,
-        });
+        model.User newUser = model.User(
+          username: username,
+          uid: userCredential.user!.uid,
+          email: email,
+          bio: bio,
+          //password: password,
+          followers: [],
+          following: [],
+          photoUrl: photoUrl ?? "",
+        );
+        await _firestore
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .set(newUser.toMap());
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           throw const AuthException(TypeAuthException.weakPassword);
