@@ -17,7 +17,11 @@ class HomeScreen extends StatelessWidget {
         }
 
         if (state is home_cubit.HomeInitial) {
-          return HomeInitial(user: state.user);
+          return HomeInitial(
+            user: state.user,
+            homeCubit: BlocProvider.of<home_cubit.HomeCubit>(context),
+            initialState: state,
+          );
         }
 
         return Container();

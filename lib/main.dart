@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:instagram_clone/core/bloc/add_post/add_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt.get<LoginCubit>()),
         BlocProvider(create: (context) => getIt.get<SignupCubit>()),
         BlocProvider(create: (context) => getIt.get<HomeCubit>()),
+        BlocProvider(create: (context) => getIt.get<AddPostCubit>()),
       ],
       child: AdaptiveTheme(
         initial: AdaptiveThemeMode.dark,

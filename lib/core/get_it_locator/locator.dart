@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:instagram_clone/core/bloc/add_post/add_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
@@ -30,6 +31,7 @@ Future<void> setup() async {
     storage: getIt.get<Storage>(),
   ));
   getIt.registerSingleton<HomeCubit>(HomeCubit()..fetchAuthChanges());
+  getIt.registerSingleton<AddPostCubit>(AddPostCubit());
 }
 
 Future<void> precachePictures() async {
