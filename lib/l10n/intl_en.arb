@@ -22,5 +22,9 @@
   "invalid_email" : "Invalid email",
   "user_disabled" : "User Disabled",
   "user_not_found" : "User not found",
-  "wrong_password" : "Wrong Password"
+  "wrong_password" : "Wrong Password",
+  "create_a_post" : "Create a post",
+  "take_a_photo" : "Take a photo",
+  "choose_from_gallery" : "Choose from Gallery",
+  "cancel" : "Cancel"
 }

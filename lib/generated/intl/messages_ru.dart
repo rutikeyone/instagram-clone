@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "bio": MessageLookupByLibrary.simpleMessage("Биография"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Закрыть"),
+        "choose_from_gallery":
+            MessageLookupByLibrary.simpleMessage("Выбрать из галереи"),
+        "create_a_post": MessageLookupByLibrary.simpleMessage("Создать пост"),
         "don_t_have_an_account":
             MessageLookupByLibrary.simpleMessage("У вас нет учетной записи?"),
         "done": MessageLookupByLibrary.simpleMessage("Ок"),
@@ -37,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Операция не разрешена"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Создать"),
+        "take_a_photo": MessageLookupByLibrary.simpleMessage("Сделать фото"),
         "the_bio_validate_message_1": MessageLookupByLibrary.simpleMessage(
             "Поле биографии не может быть пустым"),
         "the_email_validate_message_1": MessageLookupByLibrary.simpleMessage(

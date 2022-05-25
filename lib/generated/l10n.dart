@@ -289,6 +289,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Create a post`
+  String get create_a_post {
+    return Intl.message(
+      'Create a post',
+      name: 'create_a_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take a photo`
+  String get take_a_photo {
+    return Intl.message(
+      'Take a photo',
+      name: 'take_a_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose from Gallery`
+  String get choose_from_gallery {
+    return Intl.message(
+      'Choose from Gallery',
+      name: 'choose_from_gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

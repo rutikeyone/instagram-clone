@@ -23,5 +23,10 @@
     "invalid_email" : "Неверный адрес электронной почты",
     "user_disabled" : "Пользователь отключен",
     "user_not_found" : "Пользователь не найден",
-    "wrong_password" : "Неверный пароль"
+    "wrong_password" : "Неверный пароль",
+    "create_a_post" : "Создать пост",
+    "take_a_photo" : "Сделать фото",
+    "choose_from_gallery" : "Выбрать из галереи",
+    "cancel" : "Закрыть"
+
  }
