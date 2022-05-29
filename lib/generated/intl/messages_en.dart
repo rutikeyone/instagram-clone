@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "operation_not_allowed":
             MessageLookupByLibrary.simpleMessage("Operation Not Allowed"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "post": MessageLookupByLibrary.simpleMessage("Post"),
+        "post_to": MessageLookupByLibrary.simpleMessage("Post to"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "take_a_photo": MessageLookupByLibrary.simpleMessage("Take a photo"),
         "the_bio_validate_message_1": MessageLookupByLibrary.simpleMessage(
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username_or_email":
             MessageLookupByLibrary.simpleMessage("Username or email"),
         "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),
+        "write_a_caption":
+            MessageLookupByLibrary.simpleMessage("Write a caption"),
         "wrong_password": MessageLookupByLibrary.simpleMessage("Wrong Password")
       };
 }

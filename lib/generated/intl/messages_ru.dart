@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "operation_not_allowed":
             MessageLookupByLibrary.simpleMessage("Операция не разрешена"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "post": MessageLookupByLibrary.simpleMessage("Опубликовать"),
+        "post_to": MessageLookupByLibrary.simpleMessage("Пост"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Создать"),
         "take_a_photo": MessageLookupByLibrary.simpleMessage("Сделать фото"),
         "the_bio_validate_message_1": MessageLookupByLibrary.simpleMessage(
@@ -65,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username_or_email":
             MessageLookupByLibrary.simpleMessage("Имя или почта"),
         "weak_password": MessageLookupByLibrary.simpleMessage("Слабый пароль"),
+        "write_a_caption":
+            MessageLookupByLibrary.simpleMessage("Напишите пост"),
         "wrong_password":
             MessageLookupByLibrary.simpleMessage("Неверный пароль")
       };

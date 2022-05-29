@@ -329,6 +329,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Post to`
+  String get post_to {
+    return Intl.message(
+      'Post to',
+      name: 'post_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post`
+  String get post {
+    return Intl.message(
+      'Post',
+      name: 'post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a caption`
+  String get write_a_caption {
+    return Intl.message(
+      'Write a caption',
+      name: 'write_a_caption',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

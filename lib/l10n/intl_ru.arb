@@ -27,6 +27,8 @@
     "create_a_post" : "Создать пост",
     "take_a_photo" : "Сделать фото",
     "choose_from_gallery" : "Выбрать из галереи",
-    "cancel" : "Закрыть"
-
+    "cancel" : "Закрыть",
+    "post_to" : "Пост",
+    "post" : "Опубликовать",
+    "write_a_caption" : "Напишите пост"
  }

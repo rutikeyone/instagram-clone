@@ -11,4 +11,11 @@ class AddPostUpload extends AddPostState {}
 
 class AddPostShowAlertDialog extends AddPostState {}
 
-class AddPost extends AddPostState {}
+class AddPostWrite extends AddPostState {
+  final String imagePath;
+
+  const AddPostWrite({required this.imagePath});
+
+  @override
+  List<Object> get props => [imagePath];
+}
