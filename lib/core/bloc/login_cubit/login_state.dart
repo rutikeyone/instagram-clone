@@ -33,18 +33,18 @@ class LoginBack extends LoginState {
 class LoginInitial extends LoginState {
   LoginInitial({
     this.status = FormzStatus.pure,
-    this.email = const Email.pure(),
-    this.password = const Password.pure(),
+    this.email = const EmailValidate.pure(),
+    this.password = const PasswordValidate.pure(),
   });
 
   final FormzStatus status;
-  final Email email;
-  final Password password;
+  final EmailValidate email;
+  final PasswordValidate password;
 
   LoginInitial copyWith({
     FormzStatus? status,
-    Email? email,
-    Password? password,
+    EmailValidate? email,
+    PasswordValidate? password,
   }) {
     return LoginInitial(
       status: status ?? this.status,

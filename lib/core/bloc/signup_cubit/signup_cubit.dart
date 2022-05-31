@@ -1,20 +1,21 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/core/model/bio.dart';
-import 'package:instagram_clone/core/model/email.dart';
-import 'package:instagram_clone/core/model/password.dart';
-import 'package:instagram_clone/core/model/username.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/core/service/picker.dart';
 import 'package:instagram_clone/core/service/storage.dart';
 import 'package:instagram_clone/core/utils/exception/AuthException.dart';
+
 import 'package:instagram_clone/generated/l10n.dart';
+
+import '../../validate_model/bio_validate.dart';
+import '../../validate_model/email_validate.dart';
+import '../../validate_model/password_validate.dart';
+import '../../validate_model/username_validate.dart';
 
 part 'signup_state.dart';
 
@@ -37,7 +38,7 @@ class SignupCubit extends Cubit<SignState> {
   void onEmailChanged(String value) {
     if (state is SignupInitial) {
       final initialState = state as SignupInitial;
-      final Email email = Email.dirty(value);
+      final EmailValidate email = EmailValidate.dirty(value);
       emit(initialState.copyWith(
           email: email,
           status: Formz.validate([
@@ -52,7 +53,7 @@ class SignupCubit extends Cubit<SignState> {
   void onUsernameChanged(String value) {
     if (state is SignupInitial) {
       final initialState = state as SignupInitial;
-      final Username username = Username.dirty(value);
+      final UsernameValidate username = UsernameValidate.dirty(value);
       emit(initialState.copyWith(
           username: username,
           status: Formz.validate([
@@ -67,7 +68,7 @@ class SignupCubit extends Cubit<SignState> {
   void onPasswordChanged(String value) {
     if (state is SignupInitial) {
       final initialState = state as SignupInitial;
-      final Password password = Password.dirty(value);
+      final PasswordValidate password = PasswordValidate.dirty(value);
       emit(initialState.copyWith(
           password: password,
           status: Formz.validate([
@@ -81,7 +82,7 @@ class SignupCubit extends Cubit<SignState> {
 
   void onBioChanged(String value) {
     final initialState = state as SignupInitial;
-    final Bio bio = Bio.dirty(value);
+    final BioValidate bio = BioValidate.dirty(value);
     emit(initialState.copyWith(
         bio: bio,
         status: Formz.validate([
@@ -161,10 +162,10 @@ class SignupCubit extends Cubit<SignState> {
       final list = bytes.buffer.asUint8List();
 
       emit(initialState.copyWith(
-        username: const Username.pure(),
-        email: const Email.pure(),
-        password: const Password.pure(),
-        bio: const Bio.pure(),
+        username: const UsernameValidate.pure(),
+        email: const EmailValidate.pure(),
+        password: const PasswordValidate.pure(),
+        bio: const BioValidate.pure(),
         file: list,
         status: Formz.validate([
           initialState.username,

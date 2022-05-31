@@ -28,10 +28,10 @@ class SignBack extends SignState {
 class SignupInitial extends SignState {
   SignupInitial({
     this.status = FormzStatus.pure,
-    this.username = const Username.pure(),
-    this.password = const Password.pure(),
-    this.email = const Email.pure(),
-    this.bio = const Bio.pure(),
+    this.username = const UsernameValidate.pure(),
+    this.password = const PasswordValidate.pure(),
+    this.email = const EmailValidate.pure(),
+    this.bio = const BioValidate.pure(),
     this.file,
   });
 
@@ -39,18 +39,18 @@ class SignupInitial extends SignState {
   List<Object?> get props => [status, username, password, email, bio, file];
 
   final FormzStatus status;
-  final Username username;
-  final Password password;
-  final Email email;
-  final Bio bio;
+  final UsernameValidate username;
+  final PasswordValidate password;
+  final EmailValidate email;
+  final BioValidate bio;
   final Uint8List? file;
 
   SignupInitial copyWith({
     FormzStatus? status,
-    Username? username,
-    Password? password,
-    Email? email,
-    Bio? bio,
+    UsernameValidate? username,
+    PasswordValidate? password,
+    EmailValidate? email,
+    BioValidate? bio,
     Uint8List? file,
   }) {
     return SignupInitial(

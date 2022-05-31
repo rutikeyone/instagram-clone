@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart'
     as login_cubit;
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
 
-import '../../../core/model/email.dart';
-import '../../../core/model/password.dart';
+import '../../../core/validate_model/email_validate.dart';
+import '../../../core/validate_model/password_validate.dart';
+import '../../../core/view_model/login_view_model.dart';
 
 class LoginInitial extends StatelessWidget {
   final login_cubit.LoginCubit loginCubit;
   final login_cubit.LoginInitial initialState;
+  final LoginViewModel loginViewModel;
+  final HomeCubit homeCubit;
   const LoginInitial({
     Key? key,
     required this.loginCubit,
+    required this.loginViewModel,
     required this.initialState,
+    required this.homeCubit,
   }) : super(key: key);
 
   @override
@@ -27,42 +33,39 @@ class LoginInitial extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: Center(
-            child: SafeArea(
-              child: Scaffold(
-                body: CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 24),
-                            const _InstagramSvgPicture(),
-                            const SizedBox(height: 64),
-                            _EmailInputTextField(
-                                loginCubit: loginCubit,
-                                initialState: initialState),
-                            const SizedBox(height: 24),
-                            _PasswordInputTextField(
-                                loginCubit: loginCubit,
-                                initialState: initialState),
-                            const SizedBox(height: 24),
-                            _LogInButton(loginCubit: loginCubit),
-                            const SizedBox(height: 12),
-                            _SignUp(
-                                initialState: initialState,
-                                loginCubit: loginCubit),
-                            const SizedBox(height: 24),
-                          ],
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 24),
+                        const _InstagramSvgPicture(),
+                        const SizedBox(height: 64),
+                        _EmailInputTextField(
+                            loginCubit: loginCubit, initialState: initialState),
+                        const SizedBox(height: 24),
+                        _PasswordInputTextField(
+                            loginCubit: loginCubit, initialState: initialState),
+                        const SizedBox(height: 24),
+                        _LogInButton(
+                          homeCubit: homeCubit,
+                          loginCubit: loginCubit,
+                          loginViewModel: loginViewModel,
                         ),
-                      ),
+                        const SizedBox(height: 12),
+                        _SignUp(
+                            initialState: initialState, loginCubit: loginCubit),
+                        const SizedBox(height: 24),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
@@ -113,9 +116,13 @@ class _SignUp extends StatelessWidget {
 
 class _LogInButton extends StatelessWidget {
   final login_cubit.LoginCubit loginCubit;
+  final LoginViewModel loginViewModel;
+  final HomeCubit homeCubit;
   const _LogInButton({
     Key? key,
+    required this.loginViewModel,
     required this.loginCubit,
+    required this.homeCubit,
   }) : super(key: key);
 
   @override
@@ -123,7 +130,8 @@ class _LogInButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        onPressed: () => loginCubit.loginWithUserNameAndPassword(),
+        onPressed: () =>
+            loginViewModel.loginWithUserNameAndPassword(loginCubit, homeCubit),
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),

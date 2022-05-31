@@ -1,13 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import '../../../core/bloc/add_post/add_post_cubit.dart';
 
 class AddPostWrite extends StatelessWidget {
   final String imagePath;
+  final User user;
   final AddPostCubit addPostCubit;
   const AddPostWrite(
-      {Key? key, required this.imagePath, required this.addPostCubit})
+      {Key? key,
+      required this.user,
+      required this.imagePath,
+      required this.addPostCubit})
       : super(key: key);
 
   @override
@@ -25,7 +30,7 @@ class AddPostWrite extends StatelessWidget {
                 const SizedBox(height: 10),
                 ImagePostFile(imagePath: imagePath),
                 const SizedBox(height: 10),
-                const PostFormTextField(),
+                PostFormTextField(addPostCubit: addPostCubit),
               ],
             ),
           ),
@@ -44,7 +49,8 @@ class AddPostWrite extends StatelessWidget {
       title: Text(S.of(context).post_to),
       actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () =>
+              addPostCubit.makePost(user.uid, user.username, user.photoUrl),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
@@ -58,14 +64,17 @@ class AddPostWrite extends StatelessWidget {
 }
 
 class PostFormTextField extends StatelessWidget {
+  final AddPostCubit addPostCubit;
   const PostFormTextField({
     Key? key,
+    required this.addPostCubit,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextField(
+        onChanged: (value) => addPostCubit.onPostChanged(value),
         decoration: InputDecoration(
             hintText: S.of(context).write_a_caption, border: InputBorder.none),
         maxLines: 10,

@@ -16,14 +16,21 @@ class HomeCubit extends Cubit<HomeState> {
         homeController = PageController(),
         super(HomeLoading());
 
-  void fetchAuthChanges() async {
-    final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_auth.currentUser!.uid)
-        .get();
-    final data = documentSnapshot.data() as Map<String, dynamic>;
-    final user = model.User.fromMap(data);
-    emit(HomeInitial(user: user, pageIndex: 0));
+  Future<void> fetchAuthChanges() async {
+    final User? user = _auth.currentUser;
+
+    if (user != null) {
+      final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .get();
+      final data = documentSnapshot.data() as Map<String, dynamic>;
+      final user = model.User.fromMap(data);
+      emit(HomeInitial(user: user, pageIndex: 0));
+    } else {
+      final emptyUser = model.User.empty();
+      emit(HomeInitial(user: emptyUser, pageIndex: 0));
+    }
   }
 
   void changePageIndex(int newPageIndex) {

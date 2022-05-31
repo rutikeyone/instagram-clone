@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart'
     as signup_cubit;
-import 'package:instagram_clone/core/model/email.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
 
-import '../../../core/model/password.dart';
+import '../../../core/validate_model/email_validate.dart';
+import '../../../core/validate_model/password_validate.dart';
 
 class SignupInitial extends StatefulWidget {
   final signup_cubit.SignupInitial initialState;

@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:instagram_clone/core/model/email.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/generated/l10n.dart';
-import '../../model/password.dart';
 import '../../utils/exception/AuthException.dart';
+import '../../validate_model/email_validate.dart';
+import '../../validate_model/password_validate.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -27,7 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
   void onEmailChanged(String value) {
     if (state is LoginInitial) {
       final initialState = state as LoginInitial;
-      final Email email = Email.dirty(value);
+      final EmailValidate email = EmailValidate.dirty(value);
       emit(initialState.copyWith(
           email: email,
           status: Formz.validate([email, initialState.password])));
@@ -37,14 +37,14 @@ class LoginCubit extends Cubit<LoginState> {
   void onPasswordChanged(String value) {
     if (state is LoginInitial) {
       final initialState = state as LoginInitial;
-      final Password password = Password.dirty(value);
+      final PasswordValidate password = PasswordValidate.dirty(value);
       emit(initialState.copyWith(
           password: password,
           status: Formz.validate([password, initialState.email])));
     }
   }
 
-  void loginWithUserNameAndPassword() async {
+  Future<void> loginWithUserNameAndPassword() async {
     if (state is LoginInitial) {
       final initialState = state as LoginInitial;
       onEmailChanged(initialState.email.value);

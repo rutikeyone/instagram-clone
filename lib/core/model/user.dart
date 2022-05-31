@@ -19,6 +19,15 @@ class User {
     required this.following,
   });
 
+  User.empty()
+      : email = '',
+        uid = '',
+        photoUrl = '',
+        username = '',
+        bio = '',
+        followers = [],
+        following = [];
+
   User copyWith({
     String? email,
     String? uid,

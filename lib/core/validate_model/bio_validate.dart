@@ -2,9 +2,9 @@ import 'package:formz/formz.dart';
 
 enum BioValidationError { empty }
 
-class Bio extends FormzInput<String, BioValidationError> {
-  const Bio.pure() : super.pure('');
-  const Bio.dirty([String value = '']) : super.dirty(value);
+class BioValidate extends FormzInput<String, BioValidationError> {
+  const BioValidate.pure() : super.pure('');
+  const BioValidate.dirty([String value = '']) : super.dirty(value);
 
   @override
   BioValidationError? validator(String? value) {

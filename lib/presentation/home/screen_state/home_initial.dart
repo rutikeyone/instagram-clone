@@ -23,12 +23,12 @@ class HomeInitial extends StatelessWidget {
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: homeCubit.homeController,
-          children: const [
-            Text("A"),
-            Text("B"),
-            AddPostScreen(),
-            Text("D"),
-            Text("E"),
+          children: [
+            const Text("A"),
+            const Text("B"),
+            AddPostScreen(user: user),
+            const Text("D"),
+            const Text("E"),
           ],
         ),
         bottomNavigationBar: HomeInitialBottomNavigationBar(
