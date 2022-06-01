@@ -5,6 +5,8 @@ import 'package:instagram_clone/core/bloc/add_post/add_post_cubit.dart'
     as add_post_cubit;
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/generated/l10n.dart';
+import 'package:instagram_clone/presentation/add_post/screen_state/add_post_error.dart';
+import 'package:instagram_clone/presentation/add_post/screen_state/add_post_loading.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_write.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_upload.dart';
 
@@ -37,6 +39,14 @@ class AddPostScreen extends StatelessWidget {
             imagePath: state.imagePath,
             addPostCubit: BlocProvider.of<add_post_cubit.AddPostCubit>(context),
           );
+        }
+
+        if (state is add_post_cubit.AddPostLoading) {
+          return const AddPostLoading();
+        }
+
+        if (state is add_post_cubit.AddPostError) {
+          return AddPostError(errorMessage: state.errorMessage);
         }
 
         return Container();

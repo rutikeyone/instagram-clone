@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
@@ -6,7 +7,9 @@ import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/service/auth.dart';
+import 'package:instagram_clone/core/service/firestore.dart';
 import 'package:instagram_clone/core/service/impl/auth_impl.dart';
+import 'package:instagram_clone/core/service/impl/firebase_impl.dart';
 import 'package:instagram_clone/core/service/impl/picker_impl.dart';
 import 'package:instagram_clone/core/service/impl/storage_impl.dart';
 import 'package:instagram_clone/core/service/picker.dart';
@@ -21,6 +24,9 @@ Future<void> setup() async {
 
   getIt.registerSingleton<Picker>(PickerImpl());
   getIt.registerSingleton<Storage>(StorageImpl());
+  getIt.registerSingleton<Firestore>(FirestoreImpl(
+      storageService: getIt.get<Storage>(),
+      firestore: FirebaseFirestore.instance));
 
   getIt.registerSingleton<LoginCubit>(LoginCubit(
     auth: getIt.get<Auth>(),
@@ -31,7 +37,8 @@ Future<void> setup() async {
     storage: getIt.get<Storage>(),
   ));
   getIt.registerSingleton<HomeCubit>(HomeCubit()..fetchAuthChanges());
-  getIt.registerSingleton<AddPostCubit>(AddPostCubit());
+  getIt.registerSingleton<AddPostCubit>(
+      AddPostCubit(firestoreService: getIt.get<Firestore>()));
 }
 
 Future<void> precachePictures() async {

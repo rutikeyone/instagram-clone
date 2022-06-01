@@ -37,3 +37,13 @@ class AddPostWrite extends AddPostState {
     );
   }
 }
+
+class AddPostLoading extends AddPostState {}
+
+class AddPostError extends AddPostState {
+  final String errorMessage;
+  @override
+  List<Object> get props => [errorMessage];
+
+  const AddPostError({required this.errorMessage});
+}
