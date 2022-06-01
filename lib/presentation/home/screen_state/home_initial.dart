@@ -4,6 +4,7 @@ import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart'
     as home_cubit;
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/presentation/add_post/add_post_screen.dart';
+import 'package:instagram_clone/presentation/feed_post/feed_post_screen.dart';
 
 class HomeInitial extends StatelessWidget {
   final User user;
@@ -24,7 +25,7 @@ class HomeInitial extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           controller: homeCubit.homeController,
           children: [
-            const Text("A"),
+            const FeedPostScreen(),
             const Text("B"),
             AddPostScreen(user: user),
             const Text("D"),
