@@ -4,12 +4,14 @@ abstract class FeedPostState extends Equatable {
   const FeedPostState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FeedPostInitial extends FeedPostState {
   final List<Post>? posts;
 
+  @override
+  List<Object?> get props => [posts];
   const FeedPostInitial({this.posts});
 }
 

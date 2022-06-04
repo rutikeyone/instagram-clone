@@ -17,7 +17,7 @@ class FeedPostCubit extends Cubit<FeedPostState> {
   void listen() {
     postsStream.listen((data) {
       if (state is FeedPostInitial) {
-        final feedPostInitial = state as FeedPostInitial;
+        final FeedPostInitial feedPostInitial = state as FeedPostInitial;
         final List<Post> updatedList = [];
         for (int i = 0; i < data.docs.length; i++) {
           final newPost = Post.fromSnapshot(data.docs[i]);

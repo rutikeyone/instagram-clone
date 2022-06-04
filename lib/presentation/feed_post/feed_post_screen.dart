@@ -17,9 +17,9 @@ class FeedPostScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is feed_post_cubit.FeedPostInitial) {
-            final List<Post> _posts = state.posts ?? [];
+            final List<Post> posts = state.posts ?? [];
             return FeedPostInitial(
-              posts: _posts,
+              posts: posts,
             );
           }
 
