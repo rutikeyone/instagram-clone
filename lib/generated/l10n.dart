@@ -359,6 +359,26 @@ class S {
       args: [],
     );
   }
+
+  /// `likes`
+  String get likes {
+    return Intl.message(
+      'likes',
+      name: 'likes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View all comments`
+  String get view_all_comments {
+    return Intl.message(
+      'View all comments',
+      name: 'view_all_comments',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

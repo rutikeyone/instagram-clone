@@ -24,9 +24,13 @@ class HomeCubit extends Cubit<HomeState> {
           .collection('users')
           .doc(_auth.currentUser!.uid)
           .get();
-      final data = documentSnapshot.data() as Map<String, dynamic>;
-      final user = model.User.fromMap(data);
-      emit(HomeInitial(user: user, pageIndex: 0));
+      if (documentSnapshot.data() != null) {
+        final data = documentSnapshot.data() as Map<String, dynamic>;
+        final user = model.User.fromMap(data);
+        emit(HomeInitial(user: user, pageIndex: 0));
+      } else {
+        emit(HomeInitial(user: model.User.empty(), pageIndex: 0));
+      }
     } else {
       final emptyUser = model.User.empty();
       emit(HomeInitial(user: emptyUser, pageIndex: 0));

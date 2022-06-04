@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/generated/l10n.dart';
+import 'package:intl/intl.dart';
 import '../../core/model/post.dart';
 
 class PostItem extends StatelessWidget {
@@ -21,10 +23,9 @@ class PostItem extends StatelessWidget {
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(16),
                   child: CachedNetworkImage(
+                    fit: BoxFit.fill,
                     placeholder: (context, url) => Container(
-                      width: 40,
-                      height: 40,
-                      color: Colors.grey,
+                      color: Theme.of(context).focusColor,
                     ),
                     imageUrl: post.profImage,
                   ),
@@ -38,15 +39,18 @@ class PostItem extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.more_vert),
+              ),
             ],
           ),
         ),
         CachedNetworkImage(
           placeholder: (context, url) => Container(
             width: MediaQuery.of(context).size.width,
-            height: 250,
-            color: Colors.grey,
+            height: MediaQuery.of(context).size.height * 0.35,
+            color: Theme.of(context).focusColor,
           ),
           imageUrl: post.postUrl,
           fit: BoxFit.fill,
@@ -83,10 +87,56 @@ class PostItem extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                '${post.likes.length} likes',
-                style: Theme.of(context).textTheme.bodyText2,
+              Padding(
+                padding: const EdgeInsets.only(top: 4, bottom: 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.bodyText2,
+                        children: [
+                          TextSpan(
+                            text: "${post.username} ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: post.description,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${post.likes.length} ${S.of(context).likes}',
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
+              ),
+              post.likes.isNotEmpty
+                  ? InkWell(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 2, bottom: 4),
+                        child: Text(
+                          S.of(context).view_all_comments,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                      ),
+                      onTap: () {},
+                    )
+                  : Container(),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Text(
+                  DateFormat.yMMMd().format(post.datePublished),
+                  style: TextStyle(
+                    color: Theme.of(context).focusColor,
+                  ),
+                ),
               ),
             ],
           ),

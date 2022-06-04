@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
             "Неверный адрес электронной почты"),
+        "likes": MessageLookupByLibrary.simpleMessage("лайки"),
         "log_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "operation_not_allowed":
             MessageLookupByLibrary.simpleMessage("Операция не разрешена"),
@@ -66,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Имя"),
         "username_or_email":
             MessageLookupByLibrary.simpleMessage("Имя или почта"),
+        "view_all_comments":
+            MessageLookupByLibrary.simpleMessage("Смотреть все комментарии"),
         "weak_password": MessageLookupByLibrary.simpleMessage("Слабый пароль"),
         "write_a_caption":
             MessageLookupByLibrary.simpleMessage("Напишите пост"),

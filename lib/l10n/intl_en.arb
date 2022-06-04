@@ -29,5 +29,7 @@
   "cancel" : "Cancel",
   "post_to" : "Post to",
   "post" : "Post",
-  "write_a_caption" : "Write a caption"
+  "write_a_caption" : "Write a caption",
+  "likes" : "likes",
+  "view_all_comments" : "View all comments"
 }

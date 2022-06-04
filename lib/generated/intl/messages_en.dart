@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Email Already In Use"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "invalid_email": MessageLookupByLibrary.simpleMessage("Invalid email"),
+        "likes": MessageLookupByLibrary.simpleMessage("likes"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log in"),
         "operation_not_allowed":
             MessageLookupByLibrary.simpleMessage("Operation Not Allowed"),
@@ -64,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "username_or_email":
             MessageLookupByLibrary.simpleMessage("Username or email"),
+        "view_all_comments":
+            MessageLookupByLibrary.simpleMessage("View all comments"),
         "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),
         "write_a_caption":
             MessageLookupByLibrary.simpleMessage("Write a caption"),
