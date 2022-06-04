@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class Post {
+class Post extends Equatable {
   final String description;
   final String uid;
   final String username;
@@ -9,6 +10,18 @@ class Post {
   final DateTime datePublished;
   final String postUrl;
   final String profImage;
+
+  @override
+  List<Object?> get props => [
+        description,
+        uid,
+        username,
+        likes,
+        postId,
+        datePublished,
+        postUrl,
+        profImage
+      ];
 
   const Post({
     required this.description,
@@ -21,7 +34,7 @@ class Post {
     required this.profImage,
   });
 
-  static Post fromSnap(DocumentSnapshot snap) {
+  static Post fromSnapshot(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Post(
@@ -29,7 +42,7 @@ class Post {
         uid: snapshot["uid"],
         likes: snapshot["likes"],
         postId: snapshot["postId"],
-        datePublished: snapshot["datePublished"],
+        datePublished: (snapshot["datePublished"] as Timestamp).toDate(),
         username: snapshot["username"],
         postUrl: snapshot['postUrl'],
         profImage: snapshot['profImage']);

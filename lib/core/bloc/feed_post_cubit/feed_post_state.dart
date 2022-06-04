@@ -7,6 +7,10 @@ abstract class FeedPostState extends Equatable {
   List<Object> get props => [];
 }
 
-class FeedPostInitial extends FeedPostState {}
+class FeedPostInitial extends FeedPostState {
+  final List<Post>? posts;
+
+  const FeedPostInitial({this.posts});
+}
 
 class FeedPostLoading extends FeedPostState {}
