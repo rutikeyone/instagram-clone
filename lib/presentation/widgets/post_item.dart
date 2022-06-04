@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:intl/intl.dart';
 import '../../core/model/post.dart';
+import 'like_animation.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
@@ -46,14 +47,36 @@ class PostItem extends StatelessWidget {
             ],
           ),
         ),
-        CachedNetworkImage(
-          placeholder: (context, url) => Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.35,
-            color: Theme.of(context).focusColor,
-          ),
-          imageUrl: post.postUrl,
-          fit: BoxFit.fill,
+        Stack(
+          children: [
+            CachedNetworkImage(
+              placeholder: (context, url) => Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.35,
+                color: Theme.of(context).focusColor,
+              ),
+              imageUrl: post.postUrl,
+              fit: BoxFit.cover,
+            ),
+            Positioned.fill(
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: true ? 1 : 0,
+                child: LikeAnimation(
+                  isAnimating: true,
+                  duration: const Duration(
+                    milliseconds: 400,
+                  ),
+                  onEnd: () {},
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                    size: 100,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4, bottom: 4, left: 16),
