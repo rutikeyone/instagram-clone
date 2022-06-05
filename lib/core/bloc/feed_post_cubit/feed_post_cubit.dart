@@ -1,20 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:instagram_clone/core/model/user.dart' as model;
 
 import '../../model/post.dart';
+import '../../service/firestore.dart';
 
 part 'feed_post_state.dart';
 
 class FeedPostCubit extends Cubit<FeedPostState> {
   final FirebaseFirestore firebaseFirestore;
+  final Firestore firebaseService;
   final Stream<QuerySnapshot<Map<String, dynamic>>> postsStream;
 
-  FeedPostCubit({required this.firebaseFirestore})
+  FeedPostCubit(
+      {required this.firebaseService, required this.firebaseFirestore})
       : postsStream = firebaseFirestore.collection('posts').snapshots(),
         super(const FeedPostInitial(posts: []));
 
-  void listen() {
+  void listenPostItem() {
     postsStream.listen((data) {
       if (state is FeedPostInitial) {
         final FeedPostInitial feedPostInitial = state as FeedPostInitial;
@@ -27,5 +31,17 @@ class FeedPostCubit extends Cubit<FeedPostState> {
         emit(FeedPostInitial(posts: updatedList));
       }
     });
+  }
+
+  Future<void> likePost(String postId, String uid, List likes) async {
+    try {
+      await firebaseService.likePost(postId, uid, likes);
+    } catch (e) {}
+  }
+
+  Future<void> notLikePost(String postId, String uid, List likes) async {
+    try {
+      await firebaseService.notLikePost(postId, uid, likes);
+    } catch (e) {}
   }
 }

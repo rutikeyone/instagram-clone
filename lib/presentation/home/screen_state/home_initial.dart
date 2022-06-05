@@ -25,7 +25,7 @@ class HomeInitial extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           controller: homeCubit.homeController,
           children: [
-            const FeedPostScreen(),
+            FeedPostScreen(user: user),
             const Text("B"),
             AddPostScreen(user: user),
             const Text("D"),

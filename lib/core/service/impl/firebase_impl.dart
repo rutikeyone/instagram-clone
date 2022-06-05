@@ -28,4 +28,20 @@ class FirestoreImpl extends Firestore {
         profImage: profImage);
     firestore.collection('posts').doc(postId).set(post.toJson());
   }
+
+  @override
+  Future<void> likePost(String postId, String uid, List likes) async {
+    if (!likes.contains(uid)) {
+      await firestore.collection('posts').doc(postId).update({
+        'likes': FieldValue.arrayUnion([uid])
+      });
+    }
+  }
+
+  @override
+  Future<void> notLikePost(String postId, String uid, List likes) async {
+    await firestore.collection('posts').doc(postId).update({
+      'likes': FieldValue.arrayRemove([uid])
+    });
+  }
 }

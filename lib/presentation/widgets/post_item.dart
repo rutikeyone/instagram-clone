@@ -7,8 +7,14 @@ import 'like_animation.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;
+  final String userUid;
+  final VoidCallback onLikePressed;
+  final VoidCallback onNotLikePressed;
   const PostItem({
     Key? key,
+    required this.userUid,
+    required this.onLikePressed,
+    required this.onNotLikePressed,
     required this.post,
   }) : super(key: key);
 
@@ -55,9 +61,14 @@ class _PostItemState extends State<PostItem> {
           ),
         ),
         GestureDetector(
-          onTap: () => setState(() {
-            isLikeAnimating = true;
-          }),
+          onDoubleTap: () {
+            if (!widget.post.likes.contains(widget.userUid)) {
+              setState(() {
+                isLikeAnimating = !isLikeAnimating;
+                widget.onLikePressed();
+              });
+            }
+          },
           child: Stack(
             children: [
               CachedNetworkImage(
@@ -101,14 +112,27 @@ class _PostItemState extends State<PostItem> {
             children: [
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () => setState(() {
-                      isLikeAnimating = !isLikeAnimating;
-                    }),
-                    icon: const Icon(
-                      Icons.favorite_border,
-                    ),
-                  ),
+                  !widget.post.likes.contains(widget.userUid)
+                      ? IconButton(
+                          onPressed: () {
+                            widget.onLikePressed();
+                            setState(() {
+                              isLikeAnimating = !isLikeAnimating;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            widget.onNotLikePressed();
+                          },
+                          icon: Icon(
+                            Icons.favorite_border_rounded,
+                            color: Theme.of(context).errorColor,
+                          ),
+                        ),
                   IconButton(
                     icon: const Icon(
                       Icons.comment_outlined,

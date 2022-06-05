@@ -13,6 +13,14 @@ class FeedPostInitial extends FeedPostState {
   @override
   List<Object?> get props => [posts];
   const FeedPostInitial({this.posts});
+
+  FeedPostInitial copyWith({
+    List<Post>? posts,
+  }) {
+    return FeedPostInitial(
+      posts: posts ?? this.posts,
+    );
+  }
 }
 
 class FeedPostLoading extends FeedPostState {}

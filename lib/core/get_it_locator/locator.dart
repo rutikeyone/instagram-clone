@@ -40,8 +40,10 @@ Future<void> setup() async {
   getIt.registerSingleton<HomeCubit>(HomeCubit()..fetchAuthChanges());
   getIt.registerSingleton<AddPostCubit>(
       AddPostCubit(firestoreService: getIt.get<Firestore>()));
-  getIt.registerSingleton<FeedPostCubit>(
-      FeedPostCubit(firebaseFirestore: FirebaseFirestore.instance)..listen());
+  getIt.registerSingleton<FeedPostCubit>(FeedPostCubit(
+      firebaseService: getIt.get<Firestore>(),
+      firebaseFirestore: FirebaseFirestore.instance)
+    ..listenPostItem());
 }
 
 Future<void> precachePictures() async {

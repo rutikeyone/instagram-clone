@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart'
     as feed_post_cubit;
 import 'package:instagram_clone/core/model/post.dart';
+import 'package:instagram_clone/core/model/user.dart' as model;
 import 'package:instagram_clone/presentation/feed_post/screen_state/feed_post_initial.dart';
 import 'package:instagram_clone/presentation/feed_post/screen_state/feed_post_loading.dart';
 
 class FeedPostScreen extends StatelessWidget {
-  const FeedPostScreen({Key? key}) : super(key: key);
+  final model.User user;
+  const FeedPostScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,9 @@ class FeedPostScreen extends StatelessWidget {
           if (state is feed_post_cubit.FeedPostInitial) {
             final List<Post> posts = state.posts ?? [];
             return FeedPostInitial(
+              user: user,
+              feedPostCubit:
+                  BlocProvider.of<feed_post_cubit.FeedPostCubit>(context),
               posts: posts,
             );
           }
