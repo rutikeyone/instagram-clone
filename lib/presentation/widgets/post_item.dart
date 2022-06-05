@@ -5,12 +5,19 @@ import 'package:intl/intl.dart';
 import '../../core/model/post.dart';
 import 'like_animation.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
   final Post post;
   const PostItem({
     Key? key,
     required this.post,
   }) : super(key: key);
+
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
+  bool isLikeAnimating = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +35,13 @@ class PostItem extends StatelessWidget {
                     placeholder: (context, url) => Container(
                       color: Theme.of(context).focusColor,
                     ),
-                    imageUrl: post.profImage,
+                    imageUrl: widget.post.profImage,
                   ),
                 ),
               ),
               const SizedBox(width: 8),
               Text(
-                post.username,
+                widget.post.username,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -47,36 +54,45 @@ class PostItem extends StatelessWidget {
             ],
           ),
         ),
-        Stack(
-          children: [
-            CachedNetworkImage(
-              placeholder: (context, url) => Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.35,
-                color: Theme.of(context).focusColor,
+        GestureDetector(
+          onTap: () => setState(() {
+            isLikeAnimating = true;
+          }),
+          child: Stack(
+            children: [
+              CachedNetworkImage(
+                placeholder: (context, url) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  color: Theme.of(context).focusColor,
+                ),
+                imageUrl: widget.post.postUrl,
+                fit: BoxFit.cover,
               ),
-              imageUrl: post.postUrl,
-              fit: BoxFit.cover,
-            ),
-            Positioned.fill(
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: true ? 1 : 0,
-                child: LikeAnimation(
-                  isAnimating: true,
-                  duration: const Duration(
-                    milliseconds: 400,
-                  ),
-                  onEnd: () {},
-                  child: const Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                    size: 100,
+              Positioned.fill(
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: isLikeAnimating ? 1 : 0,
+                  child: LikeAnimation(
+                    isAnimating: isLikeAnimating,
+                    duration: const Duration(
+                      milliseconds: 400,
+                    ),
+                    onEnd: () {
+                      setState(() {
+                        isLikeAnimating = false;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 100,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4, bottom: 4, left: 16),
@@ -86,7 +102,9 @@ class PostItem extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => setState(() {
+                      isLikeAnimating = !isLikeAnimating;
+                    }),
                     icon: const Icon(
                       Icons.favorite_border,
                     ),
@@ -120,27 +138,27 @@ class PostItem extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText2,
                         children: [
                           TextSpan(
-                            text: "${post.username} ",
+                            text: "${widget.post.username} ",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
-                            text: post.description,
+                            text: widget.post.description,
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${post.likes.length} ${S.of(context).likes}',
+                      '${widget.post.likes.length} ${S.of(context).likes}',
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ],
                 ),
               ),
-              post.likes.isNotEmpty
+              widget.post.likes.isNotEmpty
                   ? InkWell(
                       child: Container(
                         padding: const EdgeInsets.only(top: 2, bottom: 4),
@@ -155,7 +173,7 @@ class PostItem extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Text(
-                  DateFormat.yMMMd().format(post.datePublished),
+                  DateFormat.yMMMd().format(widget.post.datePublished),
                   style: TextStyle(
                     color: Theme.of(context).focusColor,
                   ),
