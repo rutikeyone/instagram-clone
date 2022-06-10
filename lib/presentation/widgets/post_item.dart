@@ -10,12 +10,14 @@ class PostItem extends StatefulWidget {
   final String userUid;
   final VoidCallback onLikePressed;
   final VoidCallback onNotLikePressed;
+  final VoidCallback onCommentsPressed;
   const PostItem({
     Key? key,
     required this.userUid,
     required this.onLikePressed,
     required this.onNotLikePressed,
     required this.post,
+    required this.onCommentsPressed,
   }) : super(key: key);
 
   @override
@@ -73,10 +75,9 @@ class _PostItemState extends State<PostItem> {
             children: [
               CachedNetworkImage(
                 placeholder: (context, url) => Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.35,
                   color: Theme.of(context).focusColor,
                 ),
+                height: MediaQuery.of(context).size.height * 0.35,
                 imageUrl: widget.post.postUrl,
                 fit: BoxFit.cover,
               ),
@@ -121,7 +122,7 @@ class _PostItemState extends State<PostItem> {
                             });
                           },
                           icon: const Icon(
-                            Icons.favorite_border,
+                            Icons.favorite,
                           ),
                         )
                       : IconButton(
@@ -129,7 +130,7 @@ class _PostItemState extends State<PostItem> {
                             widget.onNotLikePressed();
                           },
                           icon: Icon(
-                            Icons.favorite_border_rounded,
+                            Icons.favorite,
                             color: Theme.of(context).errorColor,
                           ),
                         ),
@@ -182,24 +183,13 @@ class _PostItemState extends State<PostItem> {
                   ],
                 ),
               ),
-              widget.post.likes.isNotEmpty
-                  ? InkWell(
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 2, bottom: 4),
-                        child: Text(
-                          S.of(context).view_all_comments,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      ),
-                      onTap: () {},
-                    )
-                  : Container(),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Text(
-                  DateFormat.yMMMd().format(widget.post.datePublished),
-                  style: TextStyle(
-                    color: Theme.of(context).focusColor,
+              InkWell(
+                onTap: widget.onCommentsPressed,
+                child: Container(
+                  padding: const EdgeInsets.only(top: 2, bottom: 4),
+                  child: Text(
+                    S.of(context).view_all_comments,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
               ),

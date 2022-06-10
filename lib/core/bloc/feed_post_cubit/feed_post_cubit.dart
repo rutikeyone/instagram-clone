@@ -10,12 +10,14 @@ part 'feed_post_state.dart';
 
 class FeedPostCubit extends Cubit<FeedPostState> {
   final FirebaseFirestore firebaseFirestore;
+  final List<Post> posts;
   final Firestore firebaseService;
   final Stream<QuerySnapshot<Map<String, dynamic>>> postsStream;
 
   FeedPostCubit(
       {required this.firebaseService, required this.firebaseFirestore})
-      : postsStream = firebaseFirestore.collection('posts').snapshots(),
+      : posts = [],
+        postsStream = firebaseFirestore.collection('posts').snapshots(),
         super(const FeedPostInitial(posts: []));
 
   void listenPostItem() {
@@ -28,6 +30,8 @@ class FeedPostCubit extends Cubit<FeedPostState> {
           updatedList.add(newPost);
         }
 
+        posts.clear();
+        posts.addAll(updatedList);
         emit(FeedPostInitial(posts: updatedList));
       }
     });
@@ -43,5 +47,9 @@ class FeedPostCubit extends Cubit<FeedPostState> {
     try {
       await firebaseService.notLikePost(postId, uid, likes);
     } catch (e) {}
+  }
+
+  void emitFeedInitial() {
+    emit(FeedPostInitial(posts: posts));
   }
 }

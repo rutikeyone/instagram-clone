@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
+import 'package:instagram_clone/core/navigation/route_generator.dart';
 import '../../widgets/post_item.dart';
 
 class FeedPostInitial extends StatelessWidget {
@@ -31,6 +32,8 @@ class FeedPostInitial extends StatelessWidget {
                 onLikePressed: () => feedPostCubit.likePost(
                     posts[index].postId, posts[index].uid, posts[index].likes),
                 post: posts[index],
+                onCommentsPressed: () =>
+                    Navigator.of(context).pushNamed(commentsRouteName),
               );
             }),
       ),
