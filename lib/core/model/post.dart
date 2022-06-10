@@ -9,7 +9,7 @@ class Post extends Equatable {
   final String postId;
   final DateTime datePublished;
   final String postUrl;
-  final String profImage;
+  final String profileImage;
 
   @override
   List<Object?> get props => [
@@ -20,7 +20,7 @@ class Post extends Equatable {
         postId,
         datePublished,
         postUrl,
-        profImage
+        profileImage
       ];
 
   const Post({
@@ -31,8 +31,18 @@ class Post extends Equatable {
     required this.postId,
     required this.datePublished,
     required this.postUrl,
-    required this.profImage,
+    required this.profileImage,
   });
+
+  Post.empty()
+      : description = "",
+        uid = "",
+        username = "",
+        likes = const [],
+        postId = "",
+        datePublished = DateTime.now(),
+        postUrl = "",
+        profileImage = '';
 
   static Post fromSnapshot(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
@@ -45,7 +55,7 @@ class Post extends Equatable {
         datePublished: (snapshot["datePublished"] as Timestamp).toDate(),
         username: snapshot["username"],
         postUrl: snapshot['postUrl'],
-        profImage: snapshot['profImage']);
+        profileImage: snapshot['profImage']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -56,6 +66,6 @@ class Post extends Equatable {
         "postId": postId,
         "datePublished": datePublished,
         'postUrl': postUrl,
-        'profImage': profImage
+        'profImage': profileImage
       };
 }

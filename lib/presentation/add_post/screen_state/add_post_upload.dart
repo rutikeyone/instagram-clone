@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/core/bloc/add_post/add_post_cubit.dart';
+import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart';
 
 class AddPostUpload extends StatelessWidget {
   final AddPostCubit addPostCubit;

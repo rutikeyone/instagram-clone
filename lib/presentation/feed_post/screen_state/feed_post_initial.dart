@@ -1,40 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
-import 'package:instagram_clone/core/navigation/route_generator.dart';
+import 'package:instagram_clone/core/view_model/feed_post_view_model.dart';
 
 import '../../widgets/post_item.dart';
 
-class FeedPostInitial extends StatelessWidget {
+class FeedPostInitial extends StatefulWidget {
   final List<Post> posts;
   final User user;
   final FeedPostCubit feedPostCubit;
-  const FeedPostInitial(
-      {Key? key,
-      required this.user,
-      required this.feedPostCubit,
-      required this.posts})
-      : super(key: key);
+  final FeedPostViewModel feedPostViewModel;
+  final CommentsCubit commentsCubit;
+  const FeedPostInitial({
+    Key? key,
+    required this.user,
+    required this.feedPostCubit,
+    required this.feedPostViewModel,
+    required this.posts,
+    required this.commentsCubit,
+  }) : super(key: key);
 
+  @override
+  State<FeedPostInitial> createState() => _FeedPostInitialState();
+}
+
+class _FeedPostInitialState extends State<FeedPostInitial> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: _createFeedPostInitialAppBar(context),
         body: ListView.builder(
-            itemCount: posts.length,
+            itemCount: widget.posts.length,
             itemBuilder: (context, index) {
               return PostItem(
-                userUid: user.uid,
-                onNotLikePressed: () => feedPostCubit.notLikePost(
-                    posts[index].postId, posts[index].uid, posts[index].likes),
-                onLikePressed: () => feedPostCubit.likePost(
-                    posts[index].postId, posts[index].uid, posts[index].likes),
-                post: posts[index],
-                onCommentsPressed: () =>
-                    Navigator.of(context).pushNamed(commentsRouteName),
+                userUid: widget.user.uid,
+                onNotLikePressed: () => widget.feedPostCubit.notLikePost(
+                    widget.posts[index].postId,
+                    widget.posts[index].uid,
+                    widget.posts[index].likes),
+                onLikePressed: () => widget.feedPostCubit.likePost(
+                    widget.posts[index].postId,
+                    widget.posts[index].uid,
+                    widget.posts[index].likes),
+                post: widget.posts[index],
+                onCommentsPressed: () => widget.feedPostViewModel
+                    .navigateToComments(
+                        context, widget.commentsCubit, widget.posts[index]),
               );
             }),
       ),
@@ -60,5 +75,11 @@ class FeedPostInitial extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    widget.feedPostCubit.dispose();
+    super.dispose();
   }
 }

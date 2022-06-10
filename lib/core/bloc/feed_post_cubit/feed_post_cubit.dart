@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -12,16 +13,19 @@ class FeedPostCubit extends Cubit<FeedPostState> {
   final FirebaseFirestore firebaseFirestore;
   final List<Post> posts;
   final Firestore firebaseService;
+  final StreamController _streamController;
   final Stream<QuerySnapshot<Map<String, dynamic>>> postsStream;
 
   FeedPostCubit(
       {required this.firebaseService, required this.firebaseFirestore})
       : posts = [],
+        _streamController = StreamController()
+          ..addStream(firebaseFirestore.collection('posts').snapshots()),
         postsStream = firebaseFirestore.collection('posts').snapshots(),
         super(const FeedPostInitial(posts: []));
 
   void listenPostItem() {
-    postsStream.listen((data) {
+    _streamController.stream.listen((data) {
       if (state is FeedPostInitial) {
         final FeedPostInitial feedPostInitial = state as FeedPostInitial;
         final List<Post> updatedList = [];
@@ -51,5 +55,9 @@ class FeedPostCubit extends Cubit<FeedPostState> {
 
   void emitFeedInitial() {
     emit(FeedPostInitial(posts: posts));
+  }
+
+  void dispose() {
+    _streamController.close();
   }
 }

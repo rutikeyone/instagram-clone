@@ -379,6 +379,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Comments`
+  String get comments {
+    return Intl.message(
+      'Comments',
+      name: 'comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comment as`
+  String get comments_as {
+    return Intl.message(
+      'Comment as',
+      name: 'comments_as',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

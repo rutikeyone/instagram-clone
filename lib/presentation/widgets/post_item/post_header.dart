@@ -24,7 +24,7 @@ class PostHeader extends StatelessWidget {
                 placeholder: (context, url) => Container(
                   color: Theme.of(context).focusColor,
                 ),
-                imageUrl: widget.post.profImage,
+                imageUrl: widget.post.profileImage,
               ),
             ),
           ),

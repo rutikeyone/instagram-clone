@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:instagram_clone/core/bloc/add_post/add_post_cubit.dart';
+import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart';
+import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
@@ -44,6 +45,9 @@ Future<void> setup() async {
       firebaseService: getIt.get<Firestore>(),
       firebaseFirestore: FirebaseFirestore.instance)
     ..listenPostItem());
+  getIt.registerSingleton<CommentsCubit>(CommentsCubit(
+      firestore: getIt.get<Firestore>(),
+      firebaseFirestore: FirebaseFirestore.instance));
 }
 
 Future<void> precachePictures() async {

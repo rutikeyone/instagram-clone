@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Закрыть"),
         "choose_from_gallery":
             MessageLookupByLibrary.simpleMessage("Выбрать из галереи"),
+        "comments": MessageLookupByLibrary.simpleMessage("Комментарии"),
+        "comments_as": MessageLookupByLibrary.simpleMessage("Комментарий от"),
         "create_a_post": MessageLookupByLibrary.simpleMessage("Создать пост"),
         "don_t_have_an_account":
             MessageLookupByLibrary.simpleMessage("У вас нет учетной записи?"),

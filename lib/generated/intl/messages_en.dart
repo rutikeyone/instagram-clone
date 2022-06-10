@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "choose_from_gallery":
             MessageLookupByLibrary.simpleMessage("Choose from Gallery"),
+        "comments": MessageLookupByLibrary.simpleMessage("Comments"),
+        "comments_as": MessageLookupByLibrary.simpleMessage("Comment as"),
         "create_a_post": MessageLookupByLibrary.simpleMessage("Create a post"),
         "don_t_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),

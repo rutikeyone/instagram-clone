@@ -25,7 +25,7 @@ class FirestoreImpl extends Firestore {
         postId: postId,
         datePublished: DateTime.now(),
         postUrl: photoUrl,
-        profImage: profImage);
+        profileImage: profImage);
     firestore.collection('posts').doc(postId).set(post.toJson());
   }
 
@@ -43,5 +43,25 @@ class FirestoreImpl extends Firestore {
     await firestore.collection('posts').doc(postId).update({
       'likes': FieldValue.arrayRemove([uid])
     });
+  }
+
+  @override
+  void postComment(String postId, String comment, String uid, String name,
+      String profilePicture) {
+    String commentId = const Uuid().v1();
+    Map<String, dynamic> data = {
+      'profilePicture': profilePicture,
+      'name': name,
+      'uid': uid,
+      'comment': comment,
+      'commentId': commentId,
+      'datePublished': DateTime.now(),
+    };
+    firestore
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc(commentId)
+        .set(data);
   }
 }

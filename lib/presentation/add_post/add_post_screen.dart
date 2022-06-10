@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/core/bloc/add_post/add_post_cubit.dart'
+import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart'
     as add_post_cubit;
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/generated/l10n.dart';

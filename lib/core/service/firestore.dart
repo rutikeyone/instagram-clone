@@ -7,4 +7,7 @@ abstract class Firestore {
   Future<void> likePost(String postId, String uid, List likes);
 
   Future<void> notLikePost(String postId, String uid, List likes);
+
+  void postComment(String postId, String comment, String uid, String name,
+      String profilePicture);
 }

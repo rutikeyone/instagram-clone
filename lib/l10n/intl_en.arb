@@ -31,5 +31,7 @@
   "post" : "Post",
   "write_a_caption" : "Write a caption",
   "likes" : "likes",
-  "view_all_comments" : "View all comments"
+  "view_all_comments" : "View all comments",
+  "comments" : "Comments",
+  "comments_as" : "Comment as"
 }

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/generated/l10n.dart';
-import '../../../core/bloc/add_post/add_post_cubit.dart';
+import '../../../core/bloc/add_post_cubit/add_post_cubit.dart';
 
 class AddPostWrite extends StatelessWidget {
   final String imagePath;
