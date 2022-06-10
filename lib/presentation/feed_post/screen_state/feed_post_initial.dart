@@ -4,6 +4,7 @@ import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/core/navigation/route_generator.dart';
+
 import '../../widgets/post_item.dart';
 
 class FeedPostInitial extends StatelessWidget {
