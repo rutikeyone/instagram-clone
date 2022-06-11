@@ -84,7 +84,7 @@ class _PostItemState extends State<PostItem> {
                   ],
                 ),
               ),
-              ViewAllCommentsContainer(onTap: () => widget.onCommentsPressed),
+              ViewAllCommentsContainer(onTap: () => widget.onCommentsPressed()),
               DatePublishedContainer(widget: widget),
             ],
           ),

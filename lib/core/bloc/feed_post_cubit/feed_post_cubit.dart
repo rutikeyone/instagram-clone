@@ -23,11 +23,11 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
       required this.firebaseAuth,
       required this.firebaseFirestore})
       : posts = [],
-        super(FeedPostLoading());
+        super(const FeedPostInitial(user: model.User.empty(), posts: []));
 
-  Future<void> init() async {
+  void initStream() {
     _initStreamController();
-    _init();
+    _listenPosts();
   }
 
   void _initStreamController() {
@@ -36,7 +36,7 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
         .addStream(firebaseFirestore.collection('posts').snapshots());
   }
 
-  void _init() {
+  void _listenPosts() {
     _streamController.stream.listen((data) async {
       final List<Post> updatedList = [];
       for (int i = 0; i < data.docs.length; i++) {
@@ -46,16 +46,21 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
       posts.clear();
       posts.addAll(updatedList);
 
+      emit(FeedPostInitial(posts: updatedList, user: const model.User.empty()));
+    });
+  }
+
+  void establishAuthorizedUser() async {
+    if (state is FeedPostInitial) {
+      final initialState = state as FeedPostInitial;
+
       final model.User? user = await receiveUser(
           firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
 
       if (user != null) {
-        emit(FeedPostInitial(posts: updatedList, user: user));
-      } else {
-        emit(FeedPostInitial(
-            posts: updatedList, user: const model.User.empty()));
+        emit(initialState.copyWith(user: user));
       }
-    });
+    }
   }
 
   Future<void> likePost(String postId, String uid, List likes) async {
