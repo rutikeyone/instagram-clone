@@ -21,12 +21,16 @@ class AddPostCubit extends Cubit<AddPostState> {
     emit(AddPostUpload());
   }
 
-  void goToAddPostUpload() {
+  void navigateToAddPostUpload() {
     emit(AddPostUpload());
   }
 
   void showAlertDialog() {
     emit(AddPostShowAlertDialog());
+  }
+
+  void emitAddPostUpload() {
+    emit(AddPostUpload());
   }
 
   void addPostWithPhoto(ImageSource imageSource) async {

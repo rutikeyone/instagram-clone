@@ -44,7 +44,7 @@ class AddPostWrite extends StatelessWidget {
       backgroundColor: Colors.transparent,
       leading: GestureDetector(
         child: const Icon(Icons.arrow_back_ios_new),
-        onTap: () => addPostCubit.goToAddPostUpload(),
+        onTap: () => addPostCubit.navigateToAddPostUpload(),
       ),
       title: Text(S.of(context).post_to),
       actions: [

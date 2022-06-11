@@ -6,9 +6,13 @@ class PostHeader extends StatelessWidget {
   const PostHeader({
     Key? key,
     required this.widget,
+    required this.isCanDelete,
+    required this.onMorePressed,
   }) : super(key: key);
 
   final PostItem widget;
+  final bool isCanDelete;
+  final VoidCallback onMorePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class PostHeader extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () => widget.isCanDelete ? widget.onMorePressed() : null,
             icon: const Icon(Icons.more_vert),
           ),
         ],

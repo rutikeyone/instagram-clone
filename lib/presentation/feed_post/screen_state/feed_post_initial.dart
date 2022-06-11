@@ -4,11 +4,12 @@ import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
+import 'package:instagram_clone/core/utils/mixin/show_post_simple_dialog.dart';
 import 'package:instagram_clone/core/view_model/feed_post_view_model.dart';
 
 import '../../widgets/post_item/post_item.dart';
 
-class FeedPostInitial extends StatefulWidget {
+class FeedPostInitial extends StatefulWidget with ShowSimpleDialog {
   final List<Post> posts;
   final User user;
   final FeedPostCubit feedPostCubit;
@@ -37,6 +38,8 @@ class _FeedPostInitialState extends State<FeedPostInitial> {
             itemCount: widget.posts.length,
             itemBuilder: (context, index) {
               return PostItem(
+                onMorePressed: () {},
+                isCanDelete: widget.posts[index].uid == widget.user.uid,
                 isLiked: widget.posts[index].likes.contains(widget.user.uid),
                 onNotLikePressed: () => widget.feedPostCubit.notLikePost(
                     widget.posts[index].postId,

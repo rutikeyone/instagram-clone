@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart'
     as add_post_cubit;
 import 'package:instagram_clone/core/model/user.dart';
-import 'package:instagram_clone/generated/l10n.dart';
+import 'package:instagram_clone/core/utils/mixin/show_post_simple_dialog.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_error.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_loading.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_write.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_upload.dart';
 
-class AddPostScreen extends StatelessWidget {
+import '../widgets/add_post_simple_dialog.dart';
+
+class AddPostScreen extends StatelessWidget with ShowSimpleDialog {
   final User user;
   const AddPostScreen({Key? key, required this.user}) : super(key: key);
 
@@ -20,7 +21,11 @@ class AddPostScreen extends StatelessWidget {
         add_post_cubit.AddPostState>(
       listener: (context, state) {
         if (state is add_post_cubit.AddPostShowAlertDialog) {
-          _showPostAlertDialog(context);
+          showAlertDialog(
+              context,
+              const AddPostSimpleDialog(),
+              BlocProvider.of<add_post_cubit.AddPostCubit>(context)
+                  .emitAddPostUpload);
         }
       },
       buildWhen: (prevState, nextState) {
@@ -51,40 +56,6 @@ class AddPostScreen extends StatelessWidget {
 
         return Container();
       },
-    );
-  }
-
-  void _showPostAlertDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => SimpleDialog(
-        title: Text(S.of(context).create_a_post),
-        children: <Widget>[
-          SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
-              child: Text(S.of(context).take_a_photo),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                BlocProvider.of<add_post_cubit.AddPostCubit>(context)
-                    .addPostWithPhoto(ImageSource.camera);
-              }),
-          SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
-              child: Text(S.of(context).choose_from_gallery),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                BlocProvider.of<add_post_cubit.AddPostCubit>(context)
-                    .addPostWithPhoto(ImageSource.gallery);
-              }),
-          SimpleDialogOption(
-            padding: const EdgeInsets.all(20),
-            child: Text(S.of(context).cancel),
-            onPressed: () =>
-                BlocProvider.of<add_post_cubit.AddPostCubit>(context)
-                    .closeAlertDialog(context),
-          )
-        ],
-      ),
     );
   }
 }
