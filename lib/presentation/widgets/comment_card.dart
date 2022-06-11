@@ -36,10 +36,12 @@ class CommentCard extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                            text: comment.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
+                          text: comment.name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const TextSpan(text: " "),
                         TextSpan(
                           text: comment.comment,
                         ),

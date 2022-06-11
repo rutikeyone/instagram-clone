@@ -58,6 +58,8 @@ class LoginCubit extends Cubit<LoginState> {
           emit(LoginUserSuccess());
         } on AuthException catch (e) {
           emitLoginUserFailureWithException(e);
+        } catch (e) {
+          emit(LoginUserFailure(e.toString()));
         }
       }
     }

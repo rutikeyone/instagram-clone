@@ -20,7 +20,7 @@ class FeedPostCubit extends Cubit<FeedPostState> {
       {required this.firebaseService, required this.firebaseFirestore})
       : posts = [],
         _streamController = StreamController()
-          ..addStream(firebaseFirestore.collection('posts').snapshots()),
+          ..sink.add(firebaseFirestore.collection('posts').snapshots()),
         postsStream = firebaseFirestore.collection('posts').snapshots(),
         super(const FeedPostInitial(posts: []));
 

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart'
     as comments_cubit;
+import 'package:instagram_clone/core/model/comment.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/comment_card.dart';
@@ -9,7 +11,7 @@ import 'package:instagram_clone/presentation/widgets/comment_card.dart';
 class CommentsInitial extends StatefulWidget {
   final User user;
   final comments_cubit.CommentsCubit commentsCubit;
-  final comments_cubit.CommentsInitial initialState;
+  final comments_cubit.CommentsState initialState;
   const CommentsInitial({
     Key? key,
     required this.user,
@@ -26,7 +28,6 @@ class _CommentsInitialState extends State<CommentsInitial> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        widget.commentsCubit.clear();
         Navigator.of(context).pop();
         return false;
       },
@@ -37,15 +38,23 @@ class _CommentsInitialState extends State<CommentsInitial> {
             title: Text(S.of(context).comments),
             leading: IconButton(
                 onPressed: () {
-                  widget.commentsCubit.clear();
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.arrow_back_ios_new)),
           ),
-          body: ListView.builder(
-            itemCount: widget.initialState.comments.length,
-            itemBuilder: ((context, index) =>
-                CommentCard(comment: widget.initialState.comments[index])),
+          body: StreamBuilder(
+            stream: widget.commentsCubit.commentsStream,
+            builder: (context,
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) => CommentCard(
+                        comment:
+                            Comment.fromSnapshot(snapshot.data!.docs[index])));
+              }
+              return Container();
+            },
           ),
           bottomNavigationBar: Container(
             height: kToolbarHeight,
@@ -70,8 +79,7 @@ class _CommentsInitialState extends State<CommentsInitial> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16, right: 8),
                     child: TextField(
-                      onChanged: (value) =>
-                          widget.commentsCubit.onCommentChanged(value),
+                      controller: widget.commentsCubit.commentController,
                       decoration: InputDecoration(
                         hintText:
                             '${S.of(context).comments_as} ${widget.user.username}',

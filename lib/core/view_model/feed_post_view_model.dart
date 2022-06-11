@@ -7,10 +7,8 @@ import '../model/post.dart';
 class FeedPostViewModel extends ChangeNotifier {
   void navigateToComments(
       BuildContext context, CommentsCubit commentsCubit, Post post) async {
-    commentsCubit.establishUser().whenComplete(() {
-      commentsCubit.establishPost(post);
-      commentsCubit.listenCommentItem();
-      Navigator.of(context).pushNamed(commentsRouteName);
-    });
+    commentsCubit
+        .init(post)
+        .whenComplete(() => Navigator.of(context).pushNamed(commentsRouteName));
   }
 }

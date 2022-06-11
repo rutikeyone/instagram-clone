@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
@@ -46,8 +47,9 @@ Future<void> setup() async {
       firebaseFirestore: FirebaseFirestore.instance)
     ..listenPostItem());
   getIt.registerSingleton<CommentsCubit>(CommentsCubit(
-      firestore: getIt.get<Firestore>(),
-      firebaseFirestore: FirebaseFirestore.instance));
+      firebaseFirestore: FirebaseFirestore.instance,
+      firebaseAuth: FirebaseAuth.instance,
+      firestore: getIt.get<Firestore>()));
 }
 
 Future<void> precachePictures() async {
