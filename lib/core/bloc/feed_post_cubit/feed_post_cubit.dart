@@ -2,41 +2,58 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_clone/core/model/user.dart' as model;
+import 'package:instagram_clone/core/utils/mixin/receive_authorized_user.dart';
 
 import '../../model/post.dart';
 import '../../service/firestore.dart';
 
 part 'feed_post_state.dart';
 
-class FeedPostCubit extends Cubit<FeedPostState> {
+class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
   final FirebaseFirestore firebaseFirestore;
-  final List<Post> posts;
+  final FirebaseAuth firebaseAuth;
+  late List<Post> posts;
   final Firestore firebaseService;
-  final StreamController _streamController;
-  final Stream<QuerySnapshot<Map<String, dynamic>>> postsStream;
+  late StreamController _streamController;
 
   FeedPostCubit(
-      {required this.firebaseService, required this.firebaseFirestore})
+      {required this.firebaseService,
+      required this.firebaseAuth,
+      required this.firebaseFirestore})
       : posts = [],
-        _streamController = StreamController()
-          ..sink.add(firebaseFirestore.collection('posts').snapshots()),
-        postsStream = firebaseFirestore.collection('posts').snapshots(),
-        super(const FeedPostInitial(posts: []));
+        super(FeedPostLoading());
 
-  void listenPostItem() {
-    _streamController.stream.listen((data) {
-      if (state is FeedPostInitial) {
-        final FeedPostInitial feedPostInitial = state as FeedPostInitial;
-        final List<Post> updatedList = [];
-        for (int i = 0; i < data.docs.length; i++) {
-          final newPost = Post.fromSnapshot(data.docs[i]);
-          updatedList.add(newPost);
-        }
+  Future<void> init() async {
+    _initStreamController();
+    _init();
+  }
 
-        posts.clear();
-        posts.addAll(updatedList);
-        emit(FeedPostInitial(posts: updatedList));
+  void _initStreamController() {
+    _streamController = StreamController();
+    _streamController
+        .addStream(firebaseFirestore.collection('posts').snapshots());
+  }
+
+  void _init() {
+    _streamController.stream.listen((data) async {
+      final List<Post> updatedList = [];
+      for (int i = 0; i < data.docs.length; i++) {
+        final newPost = Post.fromSnapshot(data.docs[i]);
+        updatedList.add(newPost);
+      }
+      posts.clear();
+      posts.addAll(updatedList);
+
+      final model.User? user = await receiveUser(
+          firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
+
+      if (user != null) {
+        emit(FeedPostInitial(posts: updatedList, user: user));
+      } else {
+        emit(FeedPostInitial(
+            posts: updatedList, user: const model.User.empty()));
       }
     });
   }
@@ -51,10 +68,6 @@ class FeedPostCubit extends Cubit<FeedPostState> {
     try {
       await firebaseService.notLikePost(postId, uid, likes);
     } catch (e) {}
-  }
-
-  void emitFeedInitial() {
-    emit(FeedPostInitial(posts: posts));
   }
 
   void dispose() {

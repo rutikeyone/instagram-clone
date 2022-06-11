@@ -6,10 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart' as model;
 import 'package:instagram_clone/core/service/firestore.dart';
+import 'package:instagram_clone/core/utils/mixin/receive_authorized_user.dart';
 
 part 'comments_state.dart';
 
-class CommentsCubit extends Cubit<CommentsState> {
+class CommentsCubit extends Cubit<CommentsState> with ReceiveAuthorizedUser {
   final FirebaseFirestore firebaseFirestore;
   final FirebaseAuth firebaseAuth;
   final Firestore firestore;
@@ -18,7 +19,8 @@ class CommentsCubit extends Cubit<CommentsState> {
       {required this.firebaseFirestore,
       required this.firebaseAuth,
       required this.firestore})
-      : super(CommentsState(user: model.User.empty(), post: Post.empty()));
+      : super(
+            CommentsState(user: const model.User.empty(), post: Post.empty()));
 
   Future<void> init(Post post) async {
     await _establishUser();
@@ -27,16 +29,11 @@ class CommentsCubit extends Cubit<CommentsState> {
   }
 
   Future<void> _establishUser() async {
-    final User? user = firebaseAuth.currentUser;
+    final model.User? user = await receiveUser(
+        firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
 
     if (user != null) {
-      final DocumentSnapshot documentSnapshot =
-          await firebaseFirestore.collection('users').doc(user.uid).get();
-      if (documentSnapshot.data() != null) {
-        final data = documentSnapshot.data() as Map<String, dynamic>;
-        final user = model.User.fromMap(data);
-        emit(state.copyWith(user: user));
-      }
+      emit(state.copyWith(user: user));
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart'
     as login_cubit;
@@ -16,11 +17,14 @@ class LoginInitial extends StatelessWidget {
   final login_cubit.LoginInitial initialState;
   final LoginViewModel loginViewModel;
   final HomeCubit homeCubit;
+  final FeedPostCubit feedPostCubit;
+
   const LoginInitial({
     Key? key,
     required this.loginCubit,
     required this.loginViewModel,
     required this.initialState,
+    required this.feedPostCubit,
     required this.homeCubit,
   }) : super(key: key);
 
@@ -55,6 +59,7 @@ class LoginInitial extends StatelessWidget {
                         _LogInButton(
                           homeCubit: homeCubit,
                           loginCubit: loginCubit,
+                          feedPostCubit: feedPostCubit,
                           loginViewModel: loginViewModel,
                         ),
                         const SizedBox(height: 12),
@@ -116,12 +121,14 @@ class _SignUp extends StatelessWidget {
 
 class _LogInButton extends StatelessWidget {
   final login_cubit.LoginCubit loginCubit;
+  final FeedPostCubit feedPostCubit;
   final LoginViewModel loginViewModel;
   final HomeCubit homeCubit;
   const _LogInButton({
     Key? key,
     required this.loginViewModel,
     required this.loginCubit,
+    required this.feedPostCubit,
     required this.homeCubit,
   }) : super(key: key);
 
@@ -130,8 +137,10 @@ class _LogInButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        onPressed: () =>
-            loginViewModel.loginWithUserNameAndPassword(loginCubit, homeCubit),
+        onPressed: () => loginViewModel.loginWithUserNameAndPassword(
+            loginCubit: loginCubit,
+            homeCubit: homeCubit,
+            feedPostCubit: feedPostCubit),
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),

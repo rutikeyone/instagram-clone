@@ -19,14 +19,14 @@ class User {
     required this.following,
   });
 
-  User.empty()
+  const User.empty()
       : email = '',
         uid = '',
         photoUrl = '',
         username = '',
         bio = '',
-        followers = [],
-        following = [];
+        followers = const [],
+        following = const [];
 
   User copyWith({
     String? email,

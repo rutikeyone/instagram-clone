@@ -29,11 +29,11 @@ class HomeCubit extends Cubit<HomeState> {
         final user = model.User.fromMap(data);
         emit(HomeInitial(user: user, pageIndex: 0));
       } else {
-        emit(HomeInitial(user: model.User.empty(), pageIndex: 0));
+        emit(const HomeInitial(user: model.User.empty(), pageIndex: 0));
       }
     } else {
-      final emptyUser = model.User.empty();
-      emit(HomeInitial(user: emptyUser, pageIndex: 0));
+      const emptyUser = model.User.empty();
+      emit(const HomeInitial(user: emptyUser, pageIndex: 0));
     }
   }
 

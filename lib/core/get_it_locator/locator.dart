@@ -44,8 +44,8 @@ Future<void> setup() async {
       AddPostCubit(firestoreService: getIt.get<Firestore>()));
   getIt.registerSingleton<FeedPostCubit>(FeedPostCubit(
       firebaseService: getIt.get<Firestore>(),
-      firebaseFirestore: FirebaseFirestore.instance)
-    ..listenPostItem());
+      firebaseFirestore: FirebaseFirestore.instance,
+      firebaseAuth: FirebaseAuth.instance));
   getIt.registerSingleton<CommentsCubit>(CommentsCubit(
       firebaseFirestore: FirebaseFirestore.instance,
       firebaseAuth: FirebaseAuth.instance,

@@ -6,7 +6,7 @@ import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/core/view_model/feed_post_view_model.dart';
 
-import '../../widgets/post_item.dart';
+import '../../widgets/post_item/post_item.dart';
 
 class FeedPostInitial extends StatefulWidget {
   final List<Post> posts;
@@ -37,14 +37,14 @@ class _FeedPostInitialState extends State<FeedPostInitial> {
             itemCount: widget.posts.length,
             itemBuilder: (context, index) {
               return PostItem(
-                userUid: widget.user.uid,
+                isLiked: widget.posts[index].likes.contains(widget.user.uid),
                 onNotLikePressed: () => widget.feedPostCubit.notLikePost(
                     widget.posts[index].postId,
-                    widget.posts[index].uid,
+                    widget.user.uid,
                     widget.posts[index].likes),
                 onLikePressed: () => widget.feedPostCubit.likePost(
                     widget.posts[index].postId,
-                    widget.posts[index].uid,
+                    widget.user.uid,
                     widget.posts[index].likes),
                 post: widget.posts[index],
                 onCommentsPressed: () => widget.feedPostViewModel
@@ -79,7 +79,7 @@ class _FeedPostInitialState extends State<FeedPostInitial> {
 
   @override
   void dispose() {
-    widget.feedPostCubit.dispose();
+    //widget.feedPostCubit.dispose();
     super.dispose();
   }
 }

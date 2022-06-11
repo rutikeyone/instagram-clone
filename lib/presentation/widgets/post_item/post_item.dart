@@ -10,15 +10,18 @@ import 'date_published_container.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;
-  final String userUid;
+  final bool isLiked;
   final VoidCallback onLikePressed;
   final VoidCallback onNotLikePressed;
+  final VoidCallback onCommentsPressed;
+
   const PostItem({
     Key? key,
-    required this.userUid,
     required this.onLikePressed,
+    required this.isLiked,
     required this.onNotLikePressed,
     required this.post,
+    required this.onCommentsPressed,
   }) : super(key: key);
 
   @override
@@ -35,7 +38,7 @@ class _PostItemState extends State<PostItem> {
         PostHeader(widget: widget),
         PostPhotoDetector(
           onLikeTap: () {
-            if (!widget.post.likes.contains(widget.userUid)) {
+            if (widget.isLiked) {
               setState(() {
                 isLikeAnimating = !isLikeAnimating;
                 widget.onLikePressed();
@@ -56,16 +59,17 @@ class _PostItemState extends State<PostItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PostActions(
-                  isLiked: widget.post.likes.contains(widget.userUid),
-                  onLikePressed: () {
-                    widget.onLikePressed();
-                    setState(() {
-                      isLikeAnimating = !isLikeAnimating;
-                    });
-                  },
-                  onNotLikePressed: () {
-                    widget.onNotLikePressed();
-                  }),
+                isLiked: widget.isLiked,
+                onLikePressed: () {
+                  widget.onLikePressed();
+                  setState(() {
+                    isLikeAnimating = !isLikeAnimating;
+                  });
+                },
+                onNotLikePressed: () {
+                  widget.onNotLikePressed();
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 4, bottom: 2),
                 child: Column(
@@ -80,7 +84,7 @@ class _PostItemState extends State<PostItem> {
                   ],
                 ),
               ),
-              ViewAllCommentsContainer(onTap: () {}),
+              ViewAllCommentsContainer(onTap: () => widget.onCommentsPressed),
               DatePublishedContainer(widget: widget),
             ],
           ),

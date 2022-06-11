@@ -1,6 +1,7 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart'
     as login_cubit;
@@ -67,6 +68,7 @@ class LoginScreen extends StatelessWidget {
               return LoginInitial(
                   homeCubit: context.watch<HomeCubit>(),
                   loginViewModel: context.read<LoginViewModel>(),
+                  feedPostCubit: context.watch<FeedPostCubit>(),
                   initialState: state,
                   loginCubit: context.watch<login_cubit.LoginCubit>());
             }
