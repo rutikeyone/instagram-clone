@@ -24,9 +24,9 @@ class PostPhotoDetector extends StatelessWidget {
           CachedNetworkImage(
             placeholder: (context, url) => Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.35,
               color: Theme.of(context).focusColor,
             ),
+            height: MediaQuery.of(context).size.height * 0.35,
             imageUrl: imageUrl,
             fit: BoxFit.cover,
           ),
@@ -42,7 +42,6 @@ class PostPhotoDetector extends StatelessWidget {
                 onEnd: onEndAnimation,
                 child: const Icon(
                   Icons.favorite,
-                  color: Colors.white,
                   size: 100,
                 ),
               ),

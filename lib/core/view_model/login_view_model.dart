@@ -11,7 +11,7 @@ class LoginViewModel extends ChangeNotifier {
     await loginCubit.loginWithUserNameAndPassword().whenComplete(() async {
       if (loginCubit.state is LoginUserSuccess) {
         await homeCubit.fetchAuthChanges();
-        feedPostCubit.establishAuthorizedUser();
+        await feedPostCubit.establishAuthorizedUser();
       }
     });
   }

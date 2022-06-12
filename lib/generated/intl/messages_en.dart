@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "post": MessageLookupByLibrary.simpleMessage("Post"),
         "post_to": MessageLookupByLibrary.simpleMessage("Post to"),
+        "search_for_a_user":
+            MessageLookupByLibrary.simpleMessage("Search for a user"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "take_a_photo": MessageLookupByLibrary.simpleMessage("Take a photo"),
         "the_bio_validate_message_1": MessageLookupByLibrary.simpleMessage(

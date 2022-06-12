@@ -50,7 +50,7 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
     });
   }
 
-  void establishAuthorizedUser() async {
+  Future<void> establishAuthorizedUser() async {
     if (state is FeedPostInitial) {
       final initialState = state as FeedPostInitial;
 

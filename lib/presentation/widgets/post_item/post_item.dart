@@ -31,6 +31,7 @@ class PostItem extends StatefulWidget {
 }
 
 class _PostItemState extends State<PostItem> {
+  bool _isDisposed = false;
   bool isLikeAnimating = false;
 
   @override
@@ -43,7 +44,7 @@ class _PostItemState extends State<PostItem> {
         ),
         PostPhotoDetector(
           onLikeTap: () {
-            if (widget.isLiked) {
+            if (widget.isLiked && !_isDisposed) {
               setState(() {
                 isLikeAnimating = !isLikeAnimating;
                 widget.onLikePressed();
@@ -53,9 +54,11 @@ class _PostItemState extends State<PostItem> {
           imageUrl: widget.post.postUrl,
           isLikeAnimating: isLikeAnimating,
           onEndAnimation: () {
-            setState(() {
-              isLikeAnimating = false;
-            });
+            if (!_isDisposed) {
+              setState(() {
+                isLikeAnimating = false;
+              });
+            }
           },
         ),
         Padding(
@@ -67,9 +70,11 @@ class _PostItemState extends State<PostItem> {
                 isLiked: widget.isLiked,
                 onLikePressed: () {
                   widget.onLikePressed();
-                  setState(() {
-                    isLikeAnimating = !isLikeAnimating;
-                  });
+                  if (!_isDisposed) {
+                    setState(() {
+                      isLikeAnimating = !isLikeAnimating;
+                    });
+                  }
                 },
                 onNotLikePressed: () {
                   widget.onNotLikePressed();
@@ -96,5 +101,11 @@ class _PostItemState extends State<PostItem> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
   }
 }
