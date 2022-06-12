@@ -8,6 +8,7 @@ import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
+import 'package:instagram_clone/core/bloc/search_cubit/search_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/core/service/firestore.dart';
@@ -51,6 +52,8 @@ Future<void> setup() async {
       firebaseFirestore: FirebaseFirestore.instance,
       firebaseAuth: FirebaseAuth.instance,
       firestore: getIt.get<Firestore>()));
+  getIt.registerSingleton<SearchCubit>(
+      SearchCubit(firebaseFirestore: FirebaseFirestore.instance));
 }
 
 Future<void> precachePictures() async {

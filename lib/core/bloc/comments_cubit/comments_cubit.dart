@@ -50,6 +50,7 @@ class CommentsCubit extends Cubit<CommentsState> with ReceiveAuthorizedUser {
           .collection('posts')
           .doc(state.post.postId)
           .collection('comments')
+          .orderBy('datePublished')
           .snapshots();
 
   void clear() {

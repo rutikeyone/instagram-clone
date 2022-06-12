@@ -32,8 +32,10 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
 
   void _initStreamController() {
     _streamController = StreamController();
-    _streamController
-        .addStream(firebaseFirestore.collection('posts').snapshots());
+    _streamController.addStream(firebaseFirestore
+        .collection('posts')
+        .orderBy('datePublished')
+        .snapshots());
   }
 
   void _listenPosts() {

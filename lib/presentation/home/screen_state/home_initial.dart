@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart'
     as home_cubit;
+import 'package:instagram_clone/core/bloc/search_cubit/search_cubit.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/presentation/add_post/add_post_screen.dart';
 import 'package:instagram_clone/presentation/feed_post/feed_post_screen.dart';
@@ -11,11 +12,13 @@ class HomeInitial extends StatelessWidget {
   final User user;
   final home_cubit.HomeCubit homeCubit;
   final home_cubit.HomeInitial initialState;
+  final SearchCubit searchCubit;
   const HomeInitial({
     Key? key,
     required this.user,
     required this.homeCubit,
     required this.initialState,
+    required this.searchCubit,
   }) : super(key: key);
 
   @override
@@ -27,7 +30,7 @@ class HomeInitial extends StatelessWidget {
           controller: homeCubit.homeController,
           children: [
             FeedPostScreen(user: user),
-            const SearchScreen(),
+            SearchScreen(searchCubit: searchCubit),
             AddPostScreen(user: user),
             const Text("D"),
             const Text("E"),

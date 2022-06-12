@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/get_it_locator/locator.dart';
 import 'package:instagram_clone/presentation/comments/comments_screen.dart';
 import 'package:instagram_clone/presentation/home/home_screen.dart';
 import 'package:instagram_clone/presentation/login/login_screen.dart';
-import 'package:instagram_clone/presentation/search/search_screen.dart';
 import 'package:instagram_clone/presentation/signup/signup_screen.dart';
 
 const loginRouteName = '/login';
@@ -14,7 +12,6 @@ const signupRouteName = '/signup';
 const exitRouteName = '/exit';
 const homeRouteName = '/home';
 const commentsRouteName = '/comments';
-const searchRouteName = "/search";
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -24,10 +21,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: ((context) => const LoginScreen()),
         );
-      case searchRouteName:
-        return MaterialPageRoute(
-          builder: ((context) => const SearchScreen()),
-        );
+
       case signupRouteName:
         return MaterialPageRoute(
           builder: ((context) => SignupScreen(

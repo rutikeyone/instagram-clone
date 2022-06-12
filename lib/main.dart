@@ -7,6 +7,7 @@ import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
+import 'package:instagram_clone/core/bloc/search_cubit/search_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/get_it_locator/locator.dart';
 import 'package:instagram_clone/core/navigation/route_generator.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt.get<AddPostCubit>()),
         BlocProvider(create: (context) => getIt.get<FeedPostCubit>()),
         BlocProvider(create: (context) => getIt.get<CommentsCubit>()),
+        BlocProvider(create: (context) => getIt.get<SearchCubit>()),
       ],
       child: AdaptiveTheme(
         initial: AdaptiveThemeMode.dark,
