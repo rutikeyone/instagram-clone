@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_already_in_use":
             MessageLookupByLibrary.simpleMessage("Email Already In Use"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "followers": MessageLookupByLibrary.simpleMessage("Followers"),
+        "following": MessageLookupByLibrary.simpleMessage("Following"),
         "invalid_email": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "likes": MessageLookupByLibrary.simpleMessage("likes"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log in"),
@@ -46,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "post": MessageLookupByLibrary.simpleMessage("Post"),
         "post_to": MessageLookupByLibrary.simpleMessage("Post to"),
+        "posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "search_for_a_user":
             MessageLookupByLibrary.simpleMessage("Search for a user"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),

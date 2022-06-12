@@ -429,6 +429,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Posts`
+  String get posts {
+    return Intl.message(
+      'Posts',
+      name: 'posts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Followers`
+  String get followers {
+    return Intl.message(
+      'Followers',
+      name: 'followers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Following`
+  String get following {
+    return Intl.message(
+      'Following',
+      name: 'following',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -37,5 +37,8 @@
     "comments_as" : "Комментарий от",
     "delete" : "Удалить",
     "actions" : "Действия",
-    "search_for_a_user" : "Поиск пользователей"
+    "search_for_a_user" : "Поиск пользователей",
+    "posts" : "Посты",
+    "followers" : "Подписчики",
+    "following" : "Подписок"
  }

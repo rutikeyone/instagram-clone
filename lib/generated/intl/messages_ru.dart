@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_already_in_use":
             MessageLookupByLibrary.simpleMessage("Данная почта уже занята"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
+        "followers": MessageLookupByLibrary.simpleMessage("Подписчики"),
+        "following": MessageLookupByLibrary.simpleMessage("Подписок"),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
             "Неверный адрес электронной почты"),
         "likes": MessageLookupByLibrary.simpleMessage("лайки"),
@@ -47,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "post": MessageLookupByLibrary.simpleMessage("Опубликовать"),
         "post_to": MessageLookupByLibrary.simpleMessage("Пост"),
+        "posts": MessageLookupByLibrary.simpleMessage("Посты"),
         "search_for_a_user":
             MessageLookupByLibrary.simpleMessage("Поиск пользователей"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Создать"),

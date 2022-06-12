@@ -36,5 +36,8 @@
   "comments_as" : "Comment as",
   "delete" : "Delete",
   "actions" : "Actions",
-  "search_for_a_user" : "Search for a user"
+  "search_for_a_user" : "Search for a user",
+  "posts" : "Posts",
+  "followers" : "Followers",
+  "following" : "Following"
 }
