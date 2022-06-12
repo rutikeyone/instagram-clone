@@ -7,12 +7,11 @@ import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart'
     as login_cubit;
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
-
 import '../../../core/validate_model/email_validate.dart';
 import '../../../core/validate_model/password_validate.dart';
 import '../../../core/view_model/login_view_model.dart';
 
-class LoginInitial extends StatelessWidget {
+class LoginInitial extends StatefulWidget {
   final login_cubit.LoginCubit loginCubit;
   final login_cubit.LoginInitial initialState;
   final LoginViewModel loginViewModel;
@@ -27,6 +26,23 @@ class LoginInitial extends StatelessWidget {
     required this.feedPostCubit,
     required this.homeCubit,
   }) : super(key: key);
+
+  @override
+  State<LoginInitial> createState() => _LoginInitialState();
+}
+
+class _LoginInitialState extends State<LoginInitial> {
+  @override
+  void initState() {
+    widget.loginCubit.init();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.loginCubit.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,20 +67,25 @@ class LoginInitial extends StatelessWidget {
                         const _InstagramSvgPicture(),
                         const SizedBox(height: 64),
                         _EmailInputTextField(
-                            loginCubit: loginCubit, initialState: initialState),
+                            controller: widget.loginCubit.emainController,
+                            loginCubit: widget.loginCubit,
+                            initialState: widget.initialState),
                         const SizedBox(height: 24),
                         _PasswordInputTextField(
-                            loginCubit: loginCubit, initialState: initialState),
+                            controller: widget.loginCubit.passwordController,
+                            loginCubit: widget.loginCubit,
+                            initialState: widget.initialState),
                         const SizedBox(height: 24),
                         _LogInButton(
-                          homeCubit: homeCubit,
-                          loginCubit: loginCubit,
-                          feedPostCubit: feedPostCubit,
-                          loginViewModel: loginViewModel,
+                          homeCubit: widget.homeCubit,
+                          loginCubit: widget.loginCubit,
+                          feedPostCubit: widget.feedPostCubit,
+                          loginViewModel: widget.loginViewModel,
                         ),
                         const SizedBox(height: 12),
                         _SignUp(
-                            initialState: initialState, loginCubit: loginCubit),
+                            initialState: widget.initialState,
+                            loginCubit: widget.loginCubit),
                         const SizedBox(height: 24),
                       ],
                     ),
@@ -82,6 +103,7 @@ class LoginInitial extends StatelessWidget {
 class _SignUp extends StatelessWidget {
   final login_cubit.LoginCubit loginCubit;
   final login_cubit.LoginInitial initialState;
+
   const _SignUp({
     Key? key,
     required this.initialState,
@@ -173,10 +195,12 @@ class _InstagramSvgPicture extends StatelessWidget {
 class _EmailInputTextField extends StatelessWidget {
   final login_cubit.LoginInitial initialState;
   final login_cubit.LoginCubit loginCubit;
+  final TextEditingController controller;
   const _EmailInputTextField({
     Key? key,
     required this.initialState,
     required this.loginCubit,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -186,6 +210,7 @@ class _EmailInputTextField extends StatelessWidget {
           initialState.email != initialState.email),
       builder: (context, state) {
         return InputTextFieldTypeOne(
+          textEditingController: controller,
           textInputAction: TextInputAction.next,
           onChanged: (value) => loginCubit.onEmailChanged(value),
           isError: initialState.email.invalid,
@@ -207,10 +232,12 @@ class _EmailInputTextField extends StatelessWidget {
 class _PasswordInputTextField extends StatelessWidget {
   final login_cubit.LoginInitial initialState;
   final login_cubit.LoginCubit loginCubit;
+  final TextEditingController controller;
   const _PasswordInputTextField({
     Key? key,
     required this.initialState,
     required this.loginCubit,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -220,6 +247,7 @@ class _PasswordInputTextField extends StatelessWidget {
           initialState.password != initialState.password),
       builder: (context, state) {
         return InputTextFieldTypeOne(
+          textEditingController: controller,
           textInputAction: TextInputAction.done,
           onChanged: (value) => loginCubit.onPasswordChanged(value),
           isError: initialState.password.invalid,

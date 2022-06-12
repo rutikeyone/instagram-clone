@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
-import 'package:instagram_clone/core/bloc/cubit/profile_cubit.dart';
+import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';

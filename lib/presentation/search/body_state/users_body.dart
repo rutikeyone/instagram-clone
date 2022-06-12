@@ -18,7 +18,7 @@ class UsersBody extends StatelessWidget {
               child: SizedBox.fromSize(
                 size: const Size.fromRadius(16),
                 child: CachedNetworkImage(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   placeholder: (context, url) => Container(
                     color: Theme.of(context).focusColor,
                   ),

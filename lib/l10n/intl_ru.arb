@@ -40,5 +40,6 @@
     "search_for_a_user" : "Поиск пользователей",
     "posts" : "Посты",
     "followers" : "Подписчики",
-    "following" : "Подписки"
+    "following" : "Подписки",
+    "sign_out" : "Выйти"
  }

@@ -31,7 +31,7 @@ class SearchCubit extends Cubit<SearchState> {
     final List<User> users = [];
     final snapshot = await firebaseFirestore
         .collection('users')
-        .where('username', isGreaterThanOrEqualTo: value)
+        .where('username', isEqualTo: value)
         .get();
     final documents = snapshot.docs;
 

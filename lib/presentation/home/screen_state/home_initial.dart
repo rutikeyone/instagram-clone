@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/core/bloc/cubit/profile_cubit.dart';
+import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart'
     as home_cubit;
 import 'package:instagram_clone/core/bloc/search_cubit/search_cubit.dart';

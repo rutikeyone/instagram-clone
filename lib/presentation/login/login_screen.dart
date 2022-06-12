@@ -13,9 +13,14 @@ import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -28,9 +33,9 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<login_cubit.LoginCubit, login_cubit.LoginState>(
           listener: ((context, state) {
             if (state is login_cubit.LoginCreateUser) {
-              Navigator.of(context).pushNamed(signupRouteName).whenComplete(
-                  () => BlocProvider.of<login_cubit.LoginCubit>(context)
-                      .emitLoginInitial());
+              Navigator.of(context).pushNamed(signupRouteName);
+              BlocProvider.of<login_cubit.LoginCubit>(context)
+                  .emitLoginInitial();
             }
 
             if (state is login_cubit.LoginUserFailure) {
@@ -47,11 +52,9 @@ class LoginScreen extends StatelessWidget {
             }
 
             if (state is login_cubit.LoginUserSuccess) {
-              Navigator.of(context)
-                  .pushReplacementNamed(homeRouteName)
-                  .whenComplete(() =>
-                      BlocProvider.of<login_cubit.LoginCubit>(context)
-                          .emitLoginInitial());
+              Navigator.of(context).pushReplacementNamed(homeRouteName);
+              BlocProvider.of<login_cubit.LoginCubit>(context)
+                  .emitLoginInitial();
             }
 
             if (state is login_cubit.LoginBack) {

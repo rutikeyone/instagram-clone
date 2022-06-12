@@ -39,5 +39,6 @@
   "search_for_a_user" : "Search for a user",
   "posts" : "Posts",
   "followers" : "Followers",
-  "following" : "Following"
+  "following" : "Following",
+  "sign_out" : "Sign out"
 }

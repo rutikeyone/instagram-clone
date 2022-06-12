@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/generated/l10n.dart';
@@ -10,10 +11,19 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final Auth auth;
+  late TextEditingController emainController;
+  late TextEditingController passwordController;
   LoginCubit({required this.auth}) : super(LoginInitial());
+
+  void init() {
+    emainController = TextEditingController();
+    passwordController = TextEditingController();
+    emitLoginInitial();
+  }
 
   void emitLoginCreareUser() {
     emit(LoginCreateUser());
+    clean();
   }
 
   void emitBack() {
@@ -82,5 +92,15 @@ class LoginCubit extends Cubit<LoginState> {
       default:
         break;
     }
+  }
+
+  void clean() {
+    emainController.clear();
+    passwordController.clear();
+  }
+
+  void dispose() {
+    emainController.dispose();
+    passwordController.dispose();
   }
 }

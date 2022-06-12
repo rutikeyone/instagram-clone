@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -21,11 +22,13 @@ part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignState> {
   final Auth auth;
+  final FirebaseAuth _auth;
   final Picker picker;
   final Storage storage;
 
   SignupCubit({required this.auth, required this.picker, required this.storage})
-      : super(SignupInitial());
+      : _auth = FirebaseAuth.instance,
+        super(SignupInitial());
 
   void emitSignupInitial() {
     emit(SignupInitial());
@@ -113,9 +116,11 @@ class SignupCubit extends Cubit<SignState> {
       if (initialState.status.isValidated) {
         emit(SignCreateUserLoading());
         late final String? photoUrl;
+        UserCredential userCredential = await _auth
+            .createUserWithEmailAndPassword(email: initialState.email.value, password: initialState.password.value);
         if (initialState.file != null) {
           photoUrl = await storage.uploadImageToStorage(
-              "profilePics", initialState.file!, false);
+              "profilePics", initialState.file!, false, userCredential.user!.uid);
         } else {
           photoUrl = null;
         }

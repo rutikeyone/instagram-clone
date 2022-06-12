@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:instagram_clone/core/bloc/cubit/profile_cubit.dart';
+import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
+import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
+import 'package:instagram_clone/core/navigation/route_generator.dart';
 import 'package:instagram_clone/generated/l10n.dart';
+import 'package:instagram_clone/presentation/search/body_state/posts_body.dart';
+import 'package:instagram_clone/presentation/widgets/profile_button_type_one.dart';
 import 'package:instagram_clone/presentation/widgets/stat_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -23,12 +27,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        if (state is ProfileSignOut) {
+          Navigator.of(context).pushReplacementNamed(loginRouteName);
+        }
+      },
+      buildWhen: (prevState, nextState) => nextState is! ProfileSignOut,
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
             appBar: _createProfileAppBar(context, state),
-            body: ListView(
+            body: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
@@ -42,8 +52,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Column(
                               children: [
                                 ProfileStat(
+                                  posts: state.posts,
                                   user: state.user,
                                 ),
+                                ProfileButtonTypeOne(
+                                    text: S.of(context).sign_out,
+                                    onPressed: () =>
+                                        widget.profileCubit.signOut()),
                               ],
                             ),
                           ),
@@ -57,6 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const Divider(),
+                Expanded(child: PostsBody(posts: state.posts)),
               ],
             ),
           ),
@@ -78,9 +94,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 class ProfileStat extends StatelessWidget {
   final User user;
+  final List<Post> posts;
   const ProfileStat({
     Key? key,
     required this.user,
+    required this.posts,
   }) : super(key: key);
 
   @override
@@ -89,7 +107,8 @@ class ProfileStat extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        StatWidget(message: 0.toString(), label: S.of(context).posts),
+        StatWidget(
+            message: posts.length.toString(), label: S.of(context).posts),
         StatWidget(
             message: user.followers.length.toString(),
             label: S.of(context).followers),
@@ -161,7 +180,7 @@ class ProfileAvatar extends StatelessWidget {
         size: const Size.fromRadius(40),
         child: user.photoUrl.isNotEmpty
             ? CachedNetworkImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
                   color: Theme.of(context).focusColor,
                 ),

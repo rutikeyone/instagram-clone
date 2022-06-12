@@ -15,7 +15,7 @@ class FirestoreImpl extends Firestore {
   Future<void> uploadPost(String description, Uint8List file, String uid,
       String username, String profImage) async {
     final photoUrl =
-        await storageService.uploadImageToStorage('posts', file, true);
+        await storageService.uploadImageToStorage('posts', file, true, uid);
     final postId = const Uuid().v1();
     final post = Post(
         description: description,

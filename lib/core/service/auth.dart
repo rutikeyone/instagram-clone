@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 abstract class Auth {
   Future<void> signUpUser({
     required String email,
@@ -13,4 +11,6 @@ abstract class Auth {
     required String email,
     required String password,
   });
+
+  Future<void> signOut();
 }
