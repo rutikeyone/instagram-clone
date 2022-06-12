@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Данная почта уже занята"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "followers": MessageLookupByLibrary.simpleMessage("Подписчики"),
-        "following": MessageLookupByLibrary.simpleMessage("Подписок"),
+        "following": MessageLookupByLibrary.simpleMessage("Подписки"),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
             "Неверный адрес электронной почты"),
         "likes": MessageLookupByLibrary.simpleMessage("лайки"),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/bloc/cubit/profile_cubit.dart';
 import 'package:instagram_clone/core/model/user.dart';
+import 'package:instagram_clone/generated/l10n.dart';
+import 'package:instagram_clone/presentation/widgets/stat_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ProfileCubit profileCubit;
@@ -17,33 +19,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     widget.profileCubit.init();
     super.initState();
-  }
-
-  Column buildStatColumn(int num, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          num.toString(),
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 4),
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey,
-            ),
-          ),
-        ),
-      ],
-    );
   }
 
   @override
@@ -66,17 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             flex: 1,
                             child: Column(
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    buildStatColumn(0, "posts"),
-                                    buildStatColumn(state.user.followers.length,
-                                        "followers"),
-                                    buildStatColumn(state.user.following.length,
-                                        "following"),
-                                  ],
+                                ProfileStat(
+                                  user: state.user,
                                 ),
                               ],
                             ),
@@ -106,6 +72,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
         state.user.username,
       ),
       centerTitle: false,
+    );
+  }
+}
+
+class ProfileStat extends StatelessWidget {
+  final User user;
+  const ProfileStat({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        StatWidget(message: 0.toString(), label: S.of(context).posts),
+        StatWidget(
+            message: user.followers.length.toString(),
+            label: S.of(context).followers),
+        StatWidget(
+            message: user.following.length.toString(),
+            label: S.of(context).following),
+      ],
     );
   }
 }
