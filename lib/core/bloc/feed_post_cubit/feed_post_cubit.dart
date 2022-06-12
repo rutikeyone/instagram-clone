@@ -15,11 +15,11 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
   final FirebaseFirestore firebaseFirestore;
   final FirebaseAuth firebaseAuth;
   late List<Post> posts;
-  final Firestore firebaseService;
+  final Firestore firestoreService;
   late StreamController _streamController;
 
   FeedPostCubit(
-      {required this.firebaseService,
+      {required this.firestoreService,
       required this.firebaseAuth,
       required this.firebaseFirestore})
       : posts = [],
@@ -65,13 +65,19 @@ class FeedPostCubit extends Cubit<FeedPostState> with ReceiveAuthorizedUser {
 
   Future<void> likePost(String postId, String uid, List likes) async {
     try {
-      await firebaseService.likePost(postId, uid, likes);
+      await firestoreService.likePost(postId, uid, likes);
     } catch (e) {}
   }
 
   Future<void> notLikePost(String postId, String uid, List likes) async {
     try {
-      await firebaseService.notLikePost(postId, uid, likes);
+      await firestoreService.notLikePost(postId, uid, likes);
+    } catch (e) {}
+  }
+
+  void deletePost(String postId) async {
+    try {
+      await firestoreService.deletePost(postId);
     } catch (e) {}
   }
 

@@ -10,4 +10,6 @@ abstract class Firestore {
 
   void postComment(String postId, String comment, String uid, String name,
       String profilePicture);
+
+  Future<void> deletePost(String postId);
 }

@@ -11,7 +11,6 @@ import 'date_published_container.dart';
 class PostItem extends StatefulWidget {
   final Post post;
   final bool isLiked;
-  final bool isCanDelete;
   final VoidCallback onLikePressed;
   final VoidCallback onNotLikePressed;
   final VoidCallback onCommentsPressed;
@@ -21,7 +20,6 @@ class PostItem extends StatefulWidget {
     Key? key,
     required this.onLikePressed,
     required this.isLiked,
-    required this.isCanDelete,
     required this.onNotLikePressed,
     required this.onMorePressed,
     required this.post,
@@ -42,7 +40,6 @@ class _PostItemState extends State<PostItem> {
         PostHeader(
           onMorePressed: widget.onMorePressed,
           widget: widget,
-          isCanDelete: widget.isCanDelete,
         ),
         PostPhotoDetector(
           onLikeTap: () {

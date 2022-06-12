@@ -64,4 +64,9 @@ class FirestoreImpl extends Firestore {
         .doc(commentId)
         .set(data);
   }
+
+  @override
+  Future<void> deletePost(String postId) async {
+    await firestore.collection('posts').doc(postId).delete();
+  }
 }

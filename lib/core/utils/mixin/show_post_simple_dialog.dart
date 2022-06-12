@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 typedef EndCallback = void Function();
 
 class ShowSimpleDialog {
-  void showAlertDialog(
+  void showSimpleDialog(
       BuildContext context, Widget widget, EndCallback endCallback) {
     showDialog(
       context: context,

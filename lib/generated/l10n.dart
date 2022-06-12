@@ -399,6 +399,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actions`
+  String get actions {
+    return Intl.message(
+      'Actions',
+      name: 'actions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

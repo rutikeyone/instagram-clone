@@ -21,7 +21,7 @@ class AddPostScreen extends StatelessWidget with ShowSimpleDialog {
         add_post_cubit.AddPostState>(
       listener: (context, state) {
         if (state is add_post_cubit.AddPostShowAlertDialog) {
-          showAlertDialog(
+          showSimpleDialog(
               context,
               const AddPostSimpleDialog(),
               BlocProvider.of<add_post_cubit.AddPostCubit>(context)

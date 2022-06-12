@@ -33,5 +33,7 @@
   "likes" : "likes",
   "view_all_comments" : "View all comments",
   "comments" : "Comments",
-  "comments_as" : "Comment as"
+  "comments_as" : "Comment as",
+  "delete" : "Delete",
+  "actions" : "Actions"
 }

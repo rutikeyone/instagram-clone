@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "actions": MessageLookupByLibrary.simpleMessage("Действия"),
         "bio": MessageLookupByLibrary.simpleMessage("Биография"),
         "cancel": MessageLookupByLibrary.simpleMessage("Закрыть"),
         "choose_from_gallery":
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "comments": MessageLookupByLibrary.simpleMessage("Комментарии"),
         "comments_as": MessageLookupByLibrary.simpleMessage("Комментарий от"),
         "create_a_post": MessageLookupByLibrary.simpleMessage("Создать пост"),
+        "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "don_t_have_an_account":
             MessageLookupByLibrary.simpleMessage("У вас нет учетной записи?"),
         "done": MessageLookupByLibrary.simpleMessage("Ок"),
