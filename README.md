@@ -23,7 +23,7 @@ The Instagram clone application is a training project, the main purpose of which
 </p>
 
 ## Video
-[![Watch the video](https://github.com/RuTiKeyOne/Habits/blob/master/doc/screenshots/videoscreenshots.PNG)](https://www.youtube.com/watch?v=Fm_I15a9Ics)
+[![Watch the video](https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/videoscreenshot.png)](https://www.youtube.com/watch?v=Fm_I15a9Ics)
 
 
 ## What functionality does the application provide to the user?
