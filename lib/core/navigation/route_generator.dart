@@ -36,7 +36,8 @@ class RouteGenerator {
           builder: ((context) => const HomeScreen()),
         );
       case commentsRouteName:
-        return MaterialPageRoute(builder: (context) => const CommentsScreen());
+        return MaterialPageRoute(
+            settings: settings, builder: (context) => const CommentsScreen());
       case exitRouteName:
         return exit(0);
       default:

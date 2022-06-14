@@ -21,14 +21,16 @@ class CommentsCubit extends Cubit<CommentsState>
 
   CommentsCubit({required this.firestore}) : super(CommentsState.empty());
 
-  void init() {
+  void init(Post post) async {
     commentController = TextEditingController();
+    final user = await receiveUser();
+    emit(state.copyWith(post: post, user: user));
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> get commentsStream =>
+  Stream<QuerySnapshot<Map<String, dynamic>>> commentsStream(Post post) =>
       firebaseFirestore
           .collection('posts')
-          .doc(state.post.postId)
+          .doc(post.postId)
           .collection('comments')
           .orderBy('datePublished')
           .snapshots();

@@ -3,17 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart'
     as comments_cubit;
-import 'package:instagram_clone/core/model/user.dart';
+import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/comment_card.dart';
 
 import '../../../core/model/comment.dart';
 
 class CommentsInitial extends StatefulWidget {
+  final Post post;
   final comments_cubit.CommentsCubit commentsCubit;
   const CommentsInitial({
     Key? key,
     required this.commentsCubit,
+    required this.post,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class CommentsInitial extends StatefulWidget {
 class _CommentsInitialState extends State<CommentsInitial> {
   @override
   void initState() {
-    widget.commentsCubit.init();
+    widget.commentsCubit.init(widget.post);
     super.initState();
   }
 
@@ -46,7 +48,7 @@ class _CommentsInitialState extends State<CommentsInitial> {
                 icon: const Icon(Icons.arrow_back_ios_new)),
           ),
           body: StreamBuilder(
-            stream: widget.commentsCubit.commentsStream,
+            stream: widget.commentsCubit.commentsStream(widget.post),
             builder: (context,
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
@@ -66,18 +68,27 @@ class _CommentsInitialState extends State<CommentsInitial> {
             padding: const EdgeInsets.only(left: 16, right: 8),
             child: Row(
               children: [
-                ClipOval(
-                  child: SizedBox.fromSize(
-                    size: const Size.fromRadius(16),
-                    child: CachedNetworkImage(
-                      fit: BoxFit.fill,
-                      placeholder: (context, url) => Container(
-                        color: Theme.of(context).focusColor,
+                widget.commentsCubit.state.user.photoUrl.isNotEmpty
+                    ? ClipOval(
+                        child: SizedBox.fromSize(
+                          size: const Size.fromRadius(16),
+                          child: CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            placeholder: (context, url) => Container(
+                              color: Theme.of(context).focusColor,
+                            ),
+                            imageUrl: widget.commentsCubit.state.user.photoUrl,
+                          ),
+                        ),
+                      )
+                    : ClipOval(
+                        child: SizedBox.fromSize(
+                          size: const Size.fromRadius(16),
+                          child: Container(
+                            color: Theme.of(context).focusColor,
+                          ),
+                        ),
                       ),
-                      imageUrl: widget.commentsCubit.state.user.photoUrl,
-                    ),
-                  ),
-                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16, right: 8),

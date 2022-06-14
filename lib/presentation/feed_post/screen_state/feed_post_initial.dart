@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
+import 'package:instagram_clone/core/navigation/route_generator.dart';
 import 'package:instagram_clone/core/utils/mixin/show_post_simple_dialog.dart';
 import 'package:instagram_clone/presentation/widgets/more_actions_simple_dialog.dart';
 
@@ -50,7 +51,10 @@ class _FeedPostInitialState extends State<FeedPostInitial> {
                     widget.user.uid,
                     widget.posts[index].likes),
                 post: widget.posts[index],
-                onCommentsPressed: () {},
+                onCommentsPressed: () => Navigator.of(context).pushNamed(
+                  commentsRouteName,
+                  arguments: {'post': widget.posts[index]},
+                ),
               );
             }),
       ),
