@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
-import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart'
     as login_cubit;
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/input_text_field_type_one.dart';
 import '../../../core/validate_model/email_validate.dart';
 import '../../../core/validate_model/password_validate.dart';
-import '../../../core/view_model/login_view_model.dart';
 
 class LoginInitial extends StatefulWidget {
   final login_cubit.LoginCubit loginCubit;
   final login_cubit.LoginInitial initialState;
-  final LoginViewModel loginViewModel;
-  final HomeCubit homeCubit;
-  final FeedPostCubit feedPostCubit;
 
   const LoginInitial({
     Key? key,
     required this.loginCubit,
-    required this.loginViewModel,
     required this.initialState,
-    required this.feedPostCubit,
-    required this.homeCubit,
   }) : super(key: key);
 
   @override
@@ -77,10 +68,7 @@ class _LoginInitialState extends State<LoginInitial> {
                             initialState: widget.initialState),
                         const SizedBox(height: 24),
                         _LogInButton(
-                          homeCubit: widget.homeCubit,
                           loginCubit: widget.loginCubit,
-                          feedPostCubit: widget.feedPostCubit,
-                          loginViewModel: widget.loginViewModel,
                         ),
                         const SizedBox(height: 12),
                         _SignUp(
@@ -143,15 +131,10 @@ class _SignUp extends StatelessWidget {
 
 class _LogInButton extends StatelessWidget {
   final login_cubit.LoginCubit loginCubit;
-  final FeedPostCubit feedPostCubit;
-  final LoginViewModel loginViewModel;
-  final HomeCubit homeCubit;
+
   const _LogInButton({
     Key? key,
-    required this.loginViewModel,
     required this.loginCubit,
-    required this.feedPostCubit,
-    required this.homeCubit,
   }) : super(key: key);
 
   @override
@@ -159,10 +142,7 @@ class _LogInButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        onPressed: () => loginViewModel.loginWithUserNameAndPassword(
-            loginCubit: loginCubit,
-            homeCubit: homeCubit,
-            feedPostCubit: feedPostCubit),
+        onPressed: () => loginCubit.loginWithUserNameAndPassword(),
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),

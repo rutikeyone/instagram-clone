@@ -13,16 +13,9 @@ class CommentsScreen extends StatelessWidget {
         comments_cubit.CommentsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (state is comments_cubit.CommentsState) {
-          return CommentsInitial(
-            initialState: state,
-            user: state.user,
-            commentsCubit:
-                BlocProvider.of<comments_cubit.CommentsCubit>(context),
-          );
-        }
-
-        return Container();
+        return CommentsInitial(
+          commentsCubit: BlocProvider.of<comments_cubit.CommentsCubit>(context),
+        );
       },
     );
   }

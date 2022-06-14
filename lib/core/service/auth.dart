@@ -5,6 +5,7 @@ abstract class Auth {
     required String username,
     required String bio,
     required String? photoUrl,
+    required String uid,
   });
 
   Future<void> loginUser({

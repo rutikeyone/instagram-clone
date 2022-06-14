@@ -15,7 +15,7 @@ import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/service/auth.dart';
 import 'package:instagram_clone/core/service/firestore.dart';
 import 'package:instagram_clone/core/service/impl/auth_impl.dart';
-import 'package:instagram_clone/core/service/impl/firebase_impl.dart';
+import 'package:instagram_clone/core/service/impl/firestore_impl.dart';
 import 'package:instagram_clone/core/service/impl/picker_impl.dart';
 import 'package:instagram_clone/core/service/impl/storage_impl.dart';
 import 'package:instagram_clone/core/service/picker.dart';
@@ -43,18 +43,19 @@ Future<void> setup() async {
     picker: getIt.get<Picker>(),
     storage: getIt.get<Storage>(),
   ));
-  getIt.registerSingleton<HomeCubit>(HomeCubit()..fetchAuthChanges());
-  getIt.registerSingleton<AddPostCubit>(
-      AddPostCubit(firestoreService: getIt.get<Firestore>()));
+  getIt.registerSingleton<HomeCubit>(
+      HomeCubit(loginCubit: getIt.get<LoginCubit>()));
+  getIt.registerSingleton<AddPostCubit>(AddPostCubit(
+    firestoreService: getIt.get<Firestore>(),
+  ));
   getIt.registerSingleton<FeedPostCubit>(FeedPostCubit(
-      firestoreService: getIt.get<Firestore>(),
-      firebaseFirestore: FirebaseFirestore.instance,
-      firebaseAuth: FirebaseAuth.instance)
-    ..initStream());
-  getIt.registerSingleton<CommentsCubit>(CommentsCubit(
-      firebaseFirestore: FirebaseFirestore.instance,
-      firebaseAuth: FirebaseAuth.instance,
-      firestore: getIt.get<Firestore>()));
+    firestoreService: getIt.get<Firestore>(),
+  ));
+  getIt.registerSingleton<CommentsCubit>(
+    CommentsCubit(
+      firestore: getIt.get<Firestore>(),
+    ),
+  );
   getIt.registerSingleton<SearchCubit>(
       SearchCubit(firebaseFirestore: FirebaseFirestore.instance));
   getIt.registerSingleton<ProfileCubit>(ProfileCubit());

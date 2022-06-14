@@ -3,8 +3,13 @@ part of 'login_cubit.dart';
 abstract class LoginState extends Equatable {}
 
 class LoginUserSuccess extends LoginState {
+  final model.User user;
+  final List<Post> posts;
+
+  LoginUserSuccess({required this.user, required this.posts});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user, posts];
 }
 
 class LoginUserFailure extends LoginState {

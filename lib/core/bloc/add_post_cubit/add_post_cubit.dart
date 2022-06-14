@@ -6,13 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/core/service/firestore.dart';
+import 'package:instagram_clone/core/utils/mixin/receive_authorized_user.dart';
 import '../../validate_model/post_validate.dart';
 
 part 'add_post_state.dart';
 
-class AddPostCubit extends Cubit<AddPostState> {
+class AddPostCubit extends Cubit<AddPostState> with ReceiveAuthorizedUser {
   final Firestore firestoreService;
-
   final ImagePicker _picker = ImagePicker();
   AddPostCubit({required this.firestoreService}) : super(AddPostUpload());
 
@@ -51,16 +51,17 @@ class AddPostCubit extends Cubit<AddPostState> {
     }
   }
 
-  void makePost(String uid, String username, String profileImage) async {
+  void makePost() async {
     if (state is AddPostWrite) {
       final writeState = state as AddPostWrite;
       onPostChanged(writeState.post.value);
       if (writeState.status.isValidated) {
+        final user = await receiveUser();
         Uint8List file = await File(writeState.imagePath).readAsBytes();
         try {
           emit(AddPostLoading());
-          await firestoreService.uploadPost(
-              writeState.post.value, file, uid, username, profileImage);
+          await firestoreService.uploadPost(writeState.post.value, file,
+              user!.uid, user.username, user.photoUrl);
           emit(AddPostUpload());
         } catch (e) {
           emit(AddPostError(errorMessage: e.toString()));

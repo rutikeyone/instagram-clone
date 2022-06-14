@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart' as model;
 
 part 'profile_state.dart';
@@ -10,45 +10,25 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firebaseFirestore;
+
   ProfileCubit()
       : _auth = FirebaseAuth.instance,
         _firebaseFirestore = FirebaseFirestore.instance,
-        super(const ProfileState.empty());
+        super(const ProfileState());
 
-  void init() async {
-    await _receiveAuthorizedUser();
-    await _receiveUserPosts();
-  }
-
-  Future<void> _receiveAuthorizedUser() async {
-    final User? user = _auth.currentUser;
-
-    if (user != null) {
-      final DocumentSnapshot documentSnapshot = await _firebaseFirestore
+  Stream<DocumentSnapshot<Map<String, dynamic>>> get profileStream =>
+      _firebaseFirestore
           .collection('users')
           .doc(_auth.currentUser!.uid)
-          .get();
-      if (documentSnapshot.data() != null) {
-        final data = documentSnapshot.data() as Map<String, dynamic>;
-        final user = model.User.fromMap(data);
-        emit(state.copyWith(user: user));
-      }
-    }
-  }
+          .snapshots();
 
-  Future<void> _receiveUserPosts() async {
-    final data = await _firebaseFirestore
-        .collection('posts')
-        .where('uid', isEqualTo: state.user.uid)
-        .get();
-    final documents = data.docs;
-    final List<Post> posts =
-        documents.map((e) => Post.fromSnapshot(e)).toList();
-    emit(state.copyWith(posts: posts));
-  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> get postsAuthorizedUserStream =>
+      _firebaseFirestore
+          .collection('posts')
+          .where('uid', isEqualTo: _auth.currentUser!.uid)
+          .snapshots();
 
   Future<void> signOut() async {
     await _auth.signOut();
-    emit(const ProfileSignOut(user: model.User.empty(), posts: []));
   }
 }

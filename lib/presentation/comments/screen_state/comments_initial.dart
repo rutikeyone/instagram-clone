@@ -3,20 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart'
     as comments_cubit;
-import 'package:instagram_clone/core/model/comment.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import 'package:instagram_clone/presentation/widgets/comment_card.dart';
 
+import '../../../core/model/comment.dart';
+
 class CommentsInitial extends StatefulWidget {
-  final User user;
   final comments_cubit.CommentsCubit commentsCubit;
-  final comments_cubit.CommentsState initialState;
   const CommentsInitial({
     Key? key,
-    required this.user,
     required this.commentsCubit,
-    required this.initialState,
   }) : super(key: key);
 
   @override
@@ -24,6 +21,12 @@ class CommentsInitial extends StatefulWidget {
 }
 
 class _CommentsInitialState extends State<CommentsInitial> {
+  @override
+  void initState() {
+    widget.commentsCubit.init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -71,7 +74,7 @@ class _CommentsInitialState extends State<CommentsInitial> {
                       placeholder: (context, url) => Container(
                         color: Theme.of(context).focusColor,
                       ),
-                      imageUrl: widget.user.photoUrl,
+                      imageUrl: widget.commentsCubit.state.user.photoUrl,
                     ),
                   ),
                 ),
@@ -82,7 +85,7 @@ class _CommentsInitialState extends State<CommentsInitial> {
                       controller: widget.commentsCubit.commentController,
                       decoration: InputDecoration(
                         hintText:
-                            '${S.of(context).comments_as} ${widget.user.username}',
+                            '${S.of(context).comments_as} ${widget.commentsCubit.state.user.username}',
                         border: InputBorder.none,
                       ),
                     ),

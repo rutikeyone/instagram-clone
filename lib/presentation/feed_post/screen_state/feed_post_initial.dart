@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/model/post.dart';
 import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/core/utils/mixin/show_post_simple_dialog.dart';
-import 'package:instagram_clone/core/view_model/feed_post_view_model.dart';
 import 'package:instagram_clone/presentation/widgets/more_actions_simple_dialog.dart';
 
 import '../../widgets/post_item/post_item.dart';
 
 class FeedPostInitial extends StatefulWidget with ShowSimpleDialog {
+  final FeedPostCubit feedPostCubit;
   final List<Post> posts;
   final User user;
-  final FeedPostCubit feedPostCubit;
-  final FeedPostViewModel feedPostViewModel;
-  final CommentsCubit commentsCubit;
   const FeedPostInitial({
     Key? key,
-    required this.user,
     required this.feedPostCubit,
-    required this.feedPostViewModel,
     required this.posts,
-    required this.commentsCubit,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -56,9 +50,7 @@ class _FeedPostInitialState extends State<FeedPostInitial> {
                     widget.user.uid,
                     widget.posts[index].likes),
                 post: widget.posts[index],
-                onCommentsPressed: () => widget.feedPostViewModel
-                    .navigateToComments(
-                        context, widget.commentsCubit, widget.posts[index]),
+                onCommentsPressed: () {},
               );
             }),
       ),
@@ -84,11 +76,5 @@ class _FeedPostInitialState extends State<FeedPostInitial> {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    //widget.feedPostCubit.dispose();
-    super.dispose();
   }
 }

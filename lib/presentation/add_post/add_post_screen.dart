@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart'
     as add_post_cubit;
-import 'package:instagram_clone/core/model/user.dart';
 import 'package:instagram_clone/core/utils/mixin/show_post_simple_dialog.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_error.dart';
 import 'package:instagram_clone/presentation/add_post/screen_state/add_post_loading.dart';
@@ -12,8 +11,7 @@ import 'package:instagram_clone/presentation/add_post/screen_state/add_post_uplo
 import '../widgets/add_post_simple_dialog.dart';
 
 class AddPostScreen extends StatelessWidget with ShowSimpleDialog {
-  final User user;
-  const AddPostScreen({Key? key, required this.user}) : super(key: key);
+  const AddPostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,6 @@ class AddPostScreen extends StatelessWidget with ShowSimpleDialog {
 
         if (state is add_post_cubit.AddPostWrite) {
           return AddPostWrite(
-            user: user,
             imagePath: state.imagePath,
             addPostCubit: BlocProvider.of<add_post_cubit.AddPostCubit>(context),
           );

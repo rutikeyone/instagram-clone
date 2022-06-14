@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_clone/core/model/user.dart' as model;
 
 class ReceiveAuthorizedUser {
-  Future<model.User?> receiveUser(
-      {required FirebaseAuth firebaseAuth,
-      required FirebaseFirestore firebaseFirestore}) async {
+  final firebaseAuth = FirebaseAuth.instance;
+  final firebaseFirestore = FirebaseFirestore.instance;
+
+  Future<model.User?> receiveUser() async {
     final User? user = firebaseAuth.currentUser;
 
     if (user != null) {

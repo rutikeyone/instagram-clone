@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/signup_cubit/signup_cubit.dart';
 import 'package:instagram_clone/core/get_it_locator/locator.dart';
 import 'package:instagram_clone/presentation/comments/comments_screen.dart';
@@ -19,7 +20,9 @@ class RouteGenerator {
     switch (settings.name) {
       case loginRouteName:
         return MaterialPageRoute(
-          builder: ((context) => const LoginScreen()),
+          builder: ((context) => LoginScreen(
+                loginCubit: getIt.get<LoginCubit>(),
+              )),
         );
 
       case signupRouteName:

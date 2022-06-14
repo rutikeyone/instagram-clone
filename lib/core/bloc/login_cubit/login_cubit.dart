@@ -1,19 +1,28 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
+import 'package:instagram_clone/core/model/post.dart';
+import 'package:instagram_clone/core/model/user.dart' as model;
 import 'package:instagram_clone/core/service/auth.dart';
+import 'package:instagram_clone/core/utils/mixin/receive_authorized_user.dart';
+import 'package:instagram_clone/core/utils/mixin/receive_posts.dart';
 import 'package:instagram_clone/generated/l10n.dart';
 import '../../utils/exception/AuthException.dart';
 import '../../validate_model/email_validate.dart';
 import '../../validate_model/password_validate.dart';
 part 'login_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
+class LoginCubit extends Cubit<LoginState>
+    with ReceiveAuthorizedUser, ReceivePosts {
   final Auth auth;
   late TextEditingController emainController;
   late TextEditingController passwordController;
-  LoginCubit({required this.auth}) : super(LoginInitial());
+  LoginCubit({
+    required this.auth,
+  }) : super(LoginInitial());
 
   void init() {
     emainController = TextEditingController();
@@ -65,7 +74,12 @@ class LoginCubit extends Cubit<LoginState> {
           await auth.loginUser(
               email: initialState.email.value,
               password: initialState.password.value);
-          emit(LoginUserSuccess());
+
+          final model.User? user = await receiveUser();
+
+          final posts = await receivePosts(firebaseFirestore);
+
+          emit(LoginUserSuccess(user: user!, posts: posts));
         } on AuthException catch (e) {
           emitLoginUserFailureWithException(e);
         } catch (e) {

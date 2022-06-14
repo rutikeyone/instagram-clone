@@ -1,48 +1,33 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/model/user.dart' as model;
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final FirebaseAuth _auth;
   final PageController homeController;
+  final LoginCubit loginCubit;
+  late final StreamSubscription loginSubscription;
 
-  HomeCubit()
-      : _auth = FirebaseAuth.instance,
-        homeController = PageController(),
-        super(HomeLoading());
+  HomeCubit({required this.loginCubit})
+      : homeController = PageController(),
+        super(const HomeState(user: model.User.empty(), pageIndex: 0)) {
+    loginSubscription =
+        loginCubit.stream.listen((loginState) => _listenLoginCubit(loginState));
+  }
 
-  Future<void> fetchAuthChanges() async {
-    final User? user = _auth.currentUser;
-
-    if (user != null) {
-      final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(_auth.currentUser!.uid)
-          .get();
-      if (documentSnapshot.data() != null) {
-        final data = documentSnapshot.data() as Map<String, dynamic>;
-        final user = model.User.fromMap(data);
-        emit(HomeInitial(user: user, pageIndex: 0));
-      } else {
-        emit(const HomeInitial(user: model.User.empty(), pageIndex: 0));
-      }
-    } else {
-      const emptyUser = model.User.empty();
-      emit(const HomeInitial(user: emptyUser, pageIndex: 0));
+  void _listenLoginCubit(LoginState loginState) {
+    if (loginState is LoginUserSuccess) {
+      emit(state.copyWith(user: state.user, pageIndex: 0));
     }
   }
 
   void changePageIndex(int newPageIndex) {
-    if (state is HomeInitial) {
-      final initialState = state as HomeInitial;
-      homeController.jumpToPage(newPageIndex);
-      emit(initialState.copyWith(pageIndex: newPageIndex));
-    }
+    homeController.jumpToPage(newPageIndex);
+    emit(state.copyWith(pageIndex: newPageIndex));
   }
 
   @override

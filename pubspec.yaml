@@ -12,6 +12,7 @@ dependencies:
   adaptive_theme: ^2.3.1
   bloc: ^8.0.3
   cached_network_image: ^3.2.1
+  card_loading: ^0.1.5
   cloud_firestore: ^3.1.15
   cool_alert: ^1.1.0
   cupertino_icons: ^1.0.2

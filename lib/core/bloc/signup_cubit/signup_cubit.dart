@@ -116,11 +116,18 @@ class SignupCubit extends Cubit<SignState> {
       if (initialState.status.isValidated) {
         emit(SignCreateUserLoading());
         late final String? photoUrl;
-        UserCredential userCredential = await _auth
-            .createUserWithEmailAndPassword(email: initialState.email.value, password: initialState.password.value);
+
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
+                email: initialState.email.value,
+                password: initialState.password.value);
+
         if (initialState.file != null) {
-          photoUrl = await storage.uploadImageToStorage(
-              "profilePics", initialState.file!, false, userCredential.user!.uid);
+          photoUrl = await storage.uploadAvatar(
+            "profilePics",
+            initialState.file!,
+            userCredential.user!.uid,
+          );
         } else {
           photoUrl = null;
         }
@@ -132,6 +139,7 @@ class SignupCubit extends Cubit<SignState> {
             password: initialState.password.value,
             bio: initialState.bio.value,
             photoUrl: photoUrl ?? "",
+            uid: userCredential.user!.uid,
           );
           emit(SignBack());
         } on AuthException catch (e) {

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/presentation/widgets/like_animation.dart';
 
@@ -22,9 +23,9 @@ class PostPhotoDetector extends StatelessWidget {
       child: Stack(
         children: [
           CachedNetworkImage(
-            placeholder: (context, url) => Container(
+            placeholder: (context, url) => CardLoading(
               width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).focusColor,
+              height: MediaQuery.of(context).size.height * 0.35,
             ),
             height: MediaQuery.of(context).size.height * 0.35,
             imageUrl: imageUrl,

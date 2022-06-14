@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart'
     as home_cubit;
@@ -13,9 +14,10 @@ import 'package:instagram_clone/presentation/search/search_screen.dart';
 class HomeInitial extends StatelessWidget {
   final User user;
   final home_cubit.HomeCubit homeCubit;
-  final home_cubit.HomeInitial initialState;
+  final home_cubit.HomeState initialState;
   final SearchCubit searchCubit;
   final ProfileCubit profileCubit;
+  final FeedPostCubit feedPostCubit;
   const HomeInitial({
     Key? key,
     required this.user,
@@ -23,6 +25,7 @@ class HomeInitial extends StatelessWidget {
     required this.initialState,
     required this.profileCubit,
     required this.searchCubit,
+    required this.feedPostCubit,
   }) : super(key: key);
 
   @override
@@ -33,9 +36,9 @@ class HomeInitial extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           controller: homeCubit.homeController,
           children: [
-            FeedPostScreen(user: user),
+            FeedPostScreen(feedPostCubit: feedPostCubit),
             SearchScreen(searchCubit: searchCubit),
-            AddPostScreen(user: user),
+            const AddPostScreen(),
             const Text("D"),
             ProfileScreen(
               profileCubit: profileCubit,
@@ -53,7 +56,7 @@ class HomeInitial extends StatelessWidget {
 
 class HomeInitialBottomNavigationBar extends StatelessWidget {
   final home_cubit.HomeCubit homeCubit;
-  final home_cubit.HomeInitial initialState;
+  final home_cubit.HomeState initialState;
   const HomeInitialBottomNavigationBar({
     Key? key,
     required this.homeCubit,

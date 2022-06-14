@@ -6,13 +6,9 @@ import '../../../core/bloc/add_post_cubit/add_post_cubit.dart';
 
 class AddPostWrite extends StatelessWidget {
   final String imagePath;
-  final User user;
   final AddPostCubit addPostCubit;
   const AddPostWrite(
-      {Key? key,
-      required this.user,
-      required this.imagePath,
-      required this.addPostCubit})
+      {Key? key, required this.imagePath, required this.addPostCubit})
       : super(key: key);
 
   @override
@@ -49,8 +45,7 @@ class AddPostWrite extends StatelessWidget {
       title: Text(S.of(context).post_to),
       actions: [
         TextButton(
-          onPressed: () =>
-              addPostCubit.makePost(user.uid, user.username, user.photoUrl),
+          onPressed: () => addPostCubit.makePost(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(

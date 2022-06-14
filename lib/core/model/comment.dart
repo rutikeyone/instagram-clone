@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
@@ -51,4 +53,29 @@ class Comment extends Equatable {
         "commentId": commentId,
         "datePublished": datePublished.toString(),
       };
+
+  Map<String, dynamic> toMap() {
+    return {
+      'profilePicture': profilePicture,
+      'name': name,
+      'uid': uid,
+      'comment': comment,
+      'commentId': commentId,
+      'datePublished': datePublished.millisecondsSinceEpoch,
+    };
+  }
+
+  factory Comment.fromMap(Map<String, dynamic> map) {
+    return Comment(
+      profilePicture: map['profilePicture'] ?? '',
+      name: map['name'] ?? '',
+      uid: map['uid'] ?? '',
+      comment: map['comment'] ?? '',
+      commentId: map['commentId'] ?? '',
+      datePublished: DateTime.fromMillisecondsSinceEpoch(map['datePublished']),
+    );
+  }
+
+  factory Comment.fromJson(String source) =>
+      Comment.fromMap(json.decode(source));
 }

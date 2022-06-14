@@ -19,27 +19,23 @@ class AuthImpl extends Auth {
       required String password,
       required String username,
       required String bio,
-      required String? photoUrl}) async {
+      required String? photoUrl,
+      required String uid}) async {
     if (email.isNotEmpty ||
         password.isNotEmpty ||
         username.isNotEmpty ||
         bio.isNotEmpty) {
       try {
-        UserCredential userCredential = await _auth
-            .createUserWithEmailAndPassword(email: email, password: password);
         model.User newUser = model.User(
           username: username,
-          uid: userCredential.user!.uid,
+          uid: uid,
           email: email,
           bio: bio,
           followers: [],
           following: [],
           photoUrl: photoUrl ?? "",
         );
-        await _firestore
-            .collection('users')
-            .doc(userCredential.user!.uid)
-            .set(newUser.toMap());
+        await _firestore.collection('users').doc(uid).set(newUser.toMap());
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           throw const AuthException(TypeAuthException.weakPassword);
