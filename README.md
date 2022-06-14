@@ -1,16 +1,52 @@
-# instagram_clone
+# Instagram Clone mobile application
 
-A new Flutter project.
+The Instagram clone application is a training project, the main purpose of which was to teach how to work with Firebase.
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
+<p align="center">
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/1.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/2.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/3.png" width="250"/>
+</p>
 
-A few resources to get you started if this is your first Flutter project:
+<p align="center">
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/4.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/5.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/6.png" width="250"/>
+</p>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<p align="center">
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/7.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/8.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/9.png" width="250"/>
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Video
+[![Watch the video](https://github.com/RuTiKeyOne/Weather/blob/main/doc/screenshots/videoscreenshot.PNG)](https://www.youtube.com/watch?v=g_YWoz0y5jk)
+
+
+## What functionality does the application provide to the user?
+
+### The user can:
+* User registration
+* Log in with your email and password
+* Make a post
+* View all posts
+* Search for a user by username
+* Like the post
+* View profile data
+* Log out of the profile
+
+## Building the Code
+
+1. Clone the repository using HTTP: git clone https://github.com/RuTiKeyOne/InstagramClone
+2. Open Android Studio/Visual Studio Code.
+
+3. Click on 'Open the project folder'
+
+4. Browse to the directory where you cloned the mobile-wallet repo and click OK.
+
+5. Let Android Studio/Visual Studio Code import the project.
+
+6. Build the application in your device by clicking run button.
