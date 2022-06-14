@@ -10,21 +10,20 @@ import 'date_published_container.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;
-  final String userUid;
   final bool isLiked;
   final VoidCallback onLikePressed;
   final VoidCallback onNotLikePressed;
+  final VoidCallback onCommentsPressed;
   final VoidCallback onMorePressed;
-  final VoidCallback onCommentPressed;
+
   const PostItem({
     Key? key,
-    required this.userUid,
     required this.onLikePressed,
+    required this.isLiked,
     required this.onNotLikePressed,
     required this.onMorePressed,
-    required this.isLiked,
-    required this.onCommentPressed,
     required this.post,
+    required this.onCommentsPressed,
   }) : super(key: key);
 
   @override
@@ -32,6 +31,7 @@ class PostItem extends StatefulWidget {
 }
 
 class _PostItemState extends State<PostItem> {
+  bool _isDisposed = false;
   bool isLikeAnimating = false;
 
   @override
@@ -39,12 +39,12 @@ class _PostItemState extends State<PostItem> {
     return Column(
       children: [
         PostHeader(
+          onMorePressed: widget.onMorePressed,
           widget: widget,
-          onMorePressed: () => widget.onMorePressed(),
         ),
         PostPhotoDetector(
           onLikeTap: () {
-            if (!widget.post.likes.contains(widget.userUid)) {
+            if (widget.isLiked && !_isDisposed) {
               setState(() {
                 isLikeAnimating = !isLikeAnimating;
                 widget.onLikePressed();
@@ -54,9 +54,11 @@ class _PostItemState extends State<PostItem> {
           imageUrl: widget.post.postUrl,
           isLikeAnimating: isLikeAnimating,
           onEndAnimation: () {
-            setState(() {
-              isLikeAnimating = false;
-            });
+            if (!_isDisposed) {
+              setState(() {
+                isLikeAnimating = false;
+              });
+            }
           },
         ),
         Padding(
@@ -65,16 +67,19 @@ class _PostItemState extends State<PostItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PostActions(
-                  isLiked: widget.post.likes.contains(widget.userUid),
-                  onLikePressed: () {
-                    widget.onLikePressed();
+                isLiked: widget.isLiked,
+                onLikePressed: () {
+                  widget.onLikePressed();
+                  if (!_isDisposed) {
                     setState(() {
                       isLikeAnimating = !isLikeAnimating;
                     });
-                  },
-                  onNotLikePressed: () {
-                    widget.onNotLikePressed();
-                  }),
+                  }
+                },
+                onNotLikePressed: () {
+                  widget.onNotLikePressed();
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 4, bottom: 2),
                 child: Column(
@@ -89,12 +94,18 @@ class _PostItemState extends State<PostItem> {
                   ],
                 ),
               ),
-              ViewAllCommentsContainer(onTap: () => widget.onCommentPressed()),
+              ViewAllCommentsContainer(onTap: () => widget.onCommentsPressed()),
               DatePublishedContainer(widget: widget),
             ],
           ),
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
   }
 }
