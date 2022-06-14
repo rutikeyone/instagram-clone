@@ -5,21 +5,21 @@ The Instagram clone application is a training project, the main purpose of which
 ## Screenshots
 
 <p align="center">
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/1.png" width="250"/>
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/2.png" width="250"/>
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/3.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/1.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/2.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/3.png" width="250"/>
 </p>
 
 <p align="center">
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/4.png" width="250"/>
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/5.png" width="250"/>
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/6.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/4.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/5.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/6.png" width="250"/>
 </p>
 
 <p align="center">
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/7.png" width="250"/>
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/8.png" width="250"/>
-<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/main/doc/screenshots/9.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/7.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/8.png" width="250"/>
+<img src="https://github.com/RuTiKeyOne/InstagramClone/blob/dev/doc/screenshots/9.png" width="250"/>
 </p>
 
 ## Video
