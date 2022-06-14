@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_clone/core/bloc/favourite_cubit/favourite_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/login_cubit/login_cubit.dart';
 import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<home_cubit.HomeCubit, home_cubit.HomeState>(
         builder: ((context, state) {
           return HomeInitial(
+            favouriteCubit: BlocProvider.of<FavouriteCubit>(context),
             feedPostCubit: BlocProvider.of<FeedPostCubit>(context),
             profileCubit: BlocProvider.of<ProfileCubit>(context),
             searchCubit: BlocProvider.of<SearchCubit>(context),

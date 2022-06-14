@@ -2,12 +2,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:instagram_clone/core/model/user.dart' as model;
 import 'package:instagram_clone/core/utils/mixin/receive_authorized_user.dart';
 import 'package:instagram_clone/core/utils/mixin/receive_comments_with_post.dart';
-import '../../model/post.dart';
 import '../../service/firestore.dart';
 
 part 'feed_post_state.dart';

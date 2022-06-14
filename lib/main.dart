@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:instagram_clone/core/bloc/add_post_cubit/add_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/comments_cubit/comments_cubit.dart';
+import 'package:instagram_clone/core/bloc/favourite_cubit/favourite_cubit.dart';
 import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt.get<FeedPostCubit>()),
         BlocProvider(create: (context) => getIt.get<CommentsCubit>()),
         BlocProvider(create: (context) => getIt.get<SearchCubit>()),
-        BlocProvider(create: (context) => getIt.get<ProfileCubit>())
+        BlocProvider(create: (context) => getIt.get<ProfileCubit>()),
+        BlocProvider(create: (context) => getIt.get<FavouriteCubit>()),
       ],
       child: AdaptiveTheme(
         initial: AdaptiveThemeMode.dark,

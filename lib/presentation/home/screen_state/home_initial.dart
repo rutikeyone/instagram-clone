@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/core/bloc/favourite_cubit/favourite_cubit.dart';
 import 'package:instagram_clone/core/bloc/feed_post_cubit/feed_post_cubit.dart';
 import 'package:instagram_clone/core/bloc/profile_cubit/profile_cubit.dart';
 import 'package:instagram_clone/core/bloc/home_cubit/home_cubit.dart'
@@ -11,6 +12,8 @@ import 'package:instagram_clone/presentation/feed_post/feed_post_screen.dart';
 import 'package:instagram_clone/presentation/profile/profile_screen.dart';
 import 'package:instagram_clone/presentation/search/search_screen.dart';
 
+import '../../favourite_post/favourite_post.dart';
+
 class HomeInitial extends StatelessWidget {
   final User user;
   final home_cubit.HomeCubit homeCubit;
@@ -18,6 +21,7 @@ class HomeInitial extends StatelessWidget {
   final SearchCubit searchCubit;
   final ProfileCubit profileCubit;
   final FeedPostCubit feedPostCubit;
+  final FavouriteCubit favouriteCubit;
   const HomeInitial({
     Key? key,
     required this.user,
@@ -26,6 +30,7 @@ class HomeInitial extends StatelessWidget {
     required this.profileCubit,
     required this.searchCubit,
     required this.feedPostCubit,
+    required this.favouriteCubit,
   }) : super(key: key);
 
   @override
@@ -39,7 +44,9 @@ class HomeInitial extends StatelessWidget {
             FeedPostScreen(feedPostCubit: feedPostCubit),
             SearchScreen(searchCubit: searchCubit),
             const AddPostScreen(),
-            const Text("D"),
+            FavouriteScreen(
+              favouriteCubit: favouriteCubit,
+            ),
             ProfileScreen(
               profileCubit: profileCubit,
             ),
